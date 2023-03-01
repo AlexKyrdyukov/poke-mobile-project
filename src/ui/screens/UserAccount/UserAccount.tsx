@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 
 import style from './UserAccount.style';
 
@@ -11,4 +11,4 @@ const UserAccount: React.FC = () => {
   );
 };
 
-export default UserAccount;
+export default React.memo(UserAccount);

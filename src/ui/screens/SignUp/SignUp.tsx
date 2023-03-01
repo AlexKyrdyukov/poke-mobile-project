@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 import React from 'react';
 
 import style from './SignUp.style';
@@ -11,4 +11,4 @@ const SignUp: React.FC = () => {
   );
 };
 
-export default SignUp;
+export default React.memo(SignUp);
