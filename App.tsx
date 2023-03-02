@@ -6,12 +6,9 @@
  */
 
 import React from 'react';
-import { useColorScheme } from 'react-native';
-import AppNavigation from './src/ui/containers/AppNavigation/AppNavigation';
+import AppNavigation from './src/navigation/highStack/AppNavigation';
 
 const App: React.FC = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-  console.log(isDarkMode);
   return (
     <AppNavigation />
   );

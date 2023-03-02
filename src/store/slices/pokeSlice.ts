@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export type PokemonsType = {
+export type Pokemons = {
   pokemons: [];
 };
 
 const getInitialState = () => ({
-  pokemons: null as PokemonsType | null,
+  pokemons: null as Pokemons | null,
 });
 
 export const pokeSlice = createSlice({

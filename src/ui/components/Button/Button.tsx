@@ -1,20 +1,25 @@
-import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { View, Text, TouchableHighlight } from 'react-native';
+import styles from './Button.style';
 
-type PropsType = {
-  text: string;
+type Props = {
   onPress: () => void;
 } & React.PropsWithChildren;
 
-const Button: React.FC<PropsType> = (props) => {
+const Button: React.FC<Props> = (props) => {
   return (
-    <TouchableOpacity
-      onPress={() => props.onPress}
+    <TouchableHighlight
+      onPress={props.onPress}
     >
-      <View>
-        <Text>{props.children}</Text>
+      <View
+        style={styles.sectionContainer}
+      >
+        <Text
+          style={styles.sectionBlock}
+        >{props.children}
+        </Text>
       </View>
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 };
 

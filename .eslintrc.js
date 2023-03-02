@@ -96,7 +96,7 @@ module.exports = {
       { selector: 'class', format: ['PascalCase'] },
       { selector: 'enum', format: ['PascalCase'], suffix: ['ENUM'] },
       { selector: 'interface', format: ['PascalCase'], prefix: ['I'] },
-      { selector: 'typeAlias', format: ['PascalCase'], suffix: ['Type'] },
+      { selector: 'typeAlias', format: ['PascalCase'] },
     ],
     '@typescript-eslint/await-thenable': 'error',
     '@typescript-eslint/consistent-type-imports': 'error',

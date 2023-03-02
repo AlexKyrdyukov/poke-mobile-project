@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export type AppType = {
+export type App = {
   appState: boolean;
   total: number;
   offset: number;
@@ -9,7 +9,7 @@ export type AppType = {
 };
 
 const getInitialState = () => ({
-  app: null as AppType | null,
+  app: null as App | null,
 });
 
 export const appSlice = createSlice({
