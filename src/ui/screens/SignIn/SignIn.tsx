@@ -1,32 +1,42 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
 
-import type { Control, FieldValues } from 'react-hook-form';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Button from 'src/ui/components/Button';
 import Input from 'src/ui/components/Input';
+import dataValidation from 'src/utils/validationSchemas';
 
 import styles from './SignIn.style';
 
 type ParamList = {
-  // Home?: undefined;
   SignIn?: undefined;
-  // Feed?: { sort: 'latest' | 'top' } | undefined;
 };
 
 type Props = NativeStackScreenProps<ParamList, 'SignIn'>;
-// type Props = NativeStackScreenProps<>;
+
 const SignIn: React.FC<Props> = (props) => {
   const { navigation } = props;
+  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
+  const mail = require('src/ui/screens/SignIn/images/mail.png');
+  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
+  const view = require('src/ui/screens/SignIn/images/view.png');
+
+  const schema = yup.object({
+    email: dataValidation.requiredEmail,
+    password: dataValidation.requiredPassword,
+  });
+
   const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
     defaultValues: {
       email: '',
       password: '',
     },
   });
-
   // eslint-disable-next-line no-console
   const onSubmit = (data: { email: string; password: string }) => console.log(data, control);
 
@@ -36,22 +46,40 @@ const SignIn: React.FC<Props> = (props) => {
         style={styles.titleStyle}
       >SignIn screen
       </Text>
-      <Input
-        type="email-address"
-        placeHolder="enter email"
-        control={control as unknown as Control<FieldValues>}
-        errors={errors.email}
+      <Controller
+        control={control}
         name="email"
-        style={styles.inputStyle}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            placeHolder="Email"
+            errors={errors.email}
+            type="numbers-and-punctuation"
+            logo={mail}
+            outerStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
+            value={value}
+            hintText="Enter your email"
+            onBlur={onBlur}
+            onChangeText={onChange}
+          />
+        )}
       />
-      <Input
-        type="numbers-and-punctuation"
-        placeHolder="enter password"
-        control={control as unknown as Control<FieldValues>}
-        errors={errors.password}
+      <Controller
+        control={control}
         name="password"
-        secure
-        style={styles.inputStyle}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            placeHolder="Password"
+            errors={errors.password}
+            type="default"
+            logo={view}
+            outerStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
+            value={value}
+            hintText="Enter your password"
+            onBlur={onBlur}
+            onChangeText={onChange}
+            secure
+          />
+        )}
       />
       <Button
         style={[

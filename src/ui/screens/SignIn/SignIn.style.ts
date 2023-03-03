@@ -1,6 +1,6 @@
-import ReactNative from 'react-native';
+import reactNative from 'react-native';
 
-const style = ReactNative.StyleSheet.create({
+const style = reactNative.StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -20,15 +20,20 @@ const style = ReactNative.StyleSheet.create({
     alignSelf: 'center',
     textTransform: 'uppercase',
   },
-  inputStyle: {
-    marginBottom: 40,
-  },
   titleStyle: {
     fontSize: 30,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 40,
     alignSelf: 'center',
+  },
+  errorTextStyle: {
+    color: 'red',
+  },
+  errorSectionStyle: {
+    borderColor: '#dc143c',
+    backgroundColor: '#ffb6c1',
+    opacity: 0.8,
   },
 });
 

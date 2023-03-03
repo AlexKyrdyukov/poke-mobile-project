@@ -2,13 +2,12 @@ import reactNative from 'react-native';
 
 const styles = reactNative.StyleSheet.create({
   componentContainer: {
-    marginBottom: 20,
+    marginBottom: 40,
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 20,
   },
   sectionStyle: {
     flexDirection: 'row',
@@ -34,6 +33,12 @@ const styles = reactNative.StyleSheet.create({
     flex: 1,
     width: '100%',
     paddingLeft: 15,
+  },
+  hintText: {
+    marginTop: 40,
+    fontSize: 16,
+    paddingLeft: 10,
+    color: '#fdf5e6',
   },
 });
 

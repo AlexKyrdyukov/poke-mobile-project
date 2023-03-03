@@ -1,6 +1,6 @@
-import ReactNative from 'react-native';
+import reactNative from 'react-native';
 
-const styles = ReactNative.StyleSheet.create({
+const styles = reactNative.StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -19,6 +19,14 @@ const styles = ReactNative.StyleSheet.create({
     fontWeight: 'bold',
     alignSelf: 'center',
     textTransform: 'uppercase',
+  },
+  errorTextStyle: {
+    color: 'red',
+  },
+  errorSectionStyle: {
+    borderColor: '#dc143c',
+    backgroundColor: '#ffb6c1',
+    opacity: 0.8,
   },
 });
 

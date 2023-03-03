@@ -1,58 +1,89 @@
 import React from 'react';
-import { View, TextInput, Text, SafeAreaView, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import type { KeyboardTypeOptions, TextStyle } from 'react-native';
-import type { Control, FieldError, FieldValues } from 'react-hook-form';
-
-import { Controller } from 'react-hook-form';
+import { View, TextInput, Image, TouchableOpacity, Text, Button } from 'react-native';
+import type { ReactNode } from 'react';
+import type { KeyboardTypeOptions, TextStyle, ImageSourcePropType, NativeSyntheticEvent, TextInputFocusEventData, ViewStyle, StyleProp } from 'react-native';
+import type { FieldError } from 'react-hook-form';
 
 import styles from './Input.style';
 
 type Props = {
   placeHolder: string;
-  control: Control<FieldValues>;
-  name: string;
   errors: FieldError | undefined;
   type: KeyboardTypeOptions | undefined;
   secure?: boolean | undefined;
-  logo?: string;
-  style?: TextStyle;
+  logo: ImageSourcePropType;
+  outerStyles: StyleProp<ViewStyle | TextStyle>[];
+  value: string;
+  hintText: string;
+  onBlur: ((e: NativeSyntheticEvent<TextInputFocusEventData>) => void) | undefined;
+  onChangeText: ((text: string) => void) | undefined;
 };
 
 const Input: React.FC<Props> = (props) => {
-  const { name } = props;
+  const [imageState, setImageState] = React.useState(true);
+  const [selection, setSelection] = React.useState({ start: 0, end: 0 });
+
+  const [errorSectionStyle, errorTextStyle] = props.outerStyles;
+  const {
+    placeHolder,
+    errors,
+    type,
+    secure,
+    logo,
+    value,
+    hintText,
+    onBlur,
+    onChangeText,
+  } = props;
   // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
-  const a = require('src/ui/screens/SignIn/images/hide.png');
+  const hide = require('src/ui/screens/SignIn/images/hide.png');
+
+  const handleInputState = () => {
+    setImageState(!imageState);
+  };
+
   return (
-    // <View
-    //   style={styles.inputBlock}
-    // >
-    //       <TextInput
-    //         style={styles.inputField}
-    //         // onBlur={onBlur}
-    //         // onChangeText={onChange}
-    //         // value={value}
-    //         placeholder={props.placeHolder}
-    //         keyboardType={props.type}
-    //         secureTextEntry={props.secure}
-    //       />
-    // </View>
-    // eslint-disable-next-line no-inline-styles/no-inline-styles
-    <View style={[props.style, styles.componentContainer]}>
+    <View style={styles.componentContainer}>
       <View style={styles.container}>
-        <View style={styles.sectionStyle}>
-          <Image
-            source={
-              a
-            }
-            style={styles.imageStyle}
-          />
+        <View style={[
+          styles.sectionStyle,
+          !!errors?.message && errorSectionStyle]}
+        >
+          <TouchableOpacity
+            onPress={handleInputState}
+            disabled={!secure}
+          >
+            <Image
+              source={
+                secure && imageState
+                  ? hide
+                  : logo
+              }
+              style={styles.imageStyle}
+            />
+          </TouchableOpacity>
           <TextInput
-            style={styles.textInputStyle}
-            placeholder="Enter Your Name Here"
+            secureTextEntry={secure && imageState}
+            style={
+              styles.textInputStyle}
+            placeholder={placeHolder}
             underlineColorAndroid="transparent"
+            onBlur={onBlur}
+            onChangeText={onChangeText}
+            value={value}
+            keyboardType={type}
+            autoFocus
           />
         </View>
       </View>
+      <Text
+        style={[
+          styles.hintText,
+          !!errors?.message &&
+          errorTextStyle,
+        ]}
+      >{(errors?.message || hintText) as ReactNode}
+      </Text>
     </View>
   );
 };

@@ -1,6 +1,6 @@
-import ReactNative from 'react-native';
+import reactNative from 'react-native';
 
-const styles = ReactNative.StyleSheet.create({
+const styles = reactNative.StyleSheet.create({
   appButtonContainer: {
     marginTop: 30,
     backgroundColor: '#009688',
