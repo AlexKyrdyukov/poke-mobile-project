@@ -8,9 +8,9 @@ export type App = {
   theme: 'light' | 'dark' | null;
 };
 
-const getInitialState = () => ({
+const getInitialState = {
   app: null as App | null,
-});
+};
 
 export const appSlice = createSlice({
   name: 'appSlice',

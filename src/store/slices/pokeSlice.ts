@@ -4,9 +4,9 @@ export type Pokemons = {
   pokemons: [];
 };
 
-const getInitialState = () => ({
+const getInitialState = {
   pokemons: null as Pokemons | null,
-});
+};
 
 export const pokeSlice = createSlice({
   name: 'pokeSlice',

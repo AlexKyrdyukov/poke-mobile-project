@@ -2,40 +2,55 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { User } from 'src/types/user';
 
 class AsyncStorageItem<D> {
-  key: string;
-
-  defaultValue: D | null;
+  rootKey: string;
 
   constructor(
-    key: string,
-    defaultValue?: D,
+    rootKey: string,
   ) {
-    this.key = key;
-    this.defaultValue = defaultValue ?? null;
+    this.rootKey = rootKey;
   }
 
-  async set(data: D) {
+  createKey = (nestedKey: string) => {
+    return `${this.rootKey}:${nestedKey}`;
+  };
+
+  async set(nestedKey: string, data: D) {
+    const key = nestedKey ? this.createKey(nestedKey) : this.rootKey;
+
     try {
-      await AsyncStorage.setItem(this.key, JSON.stringify(data));
+      await AsyncStorage.setItem(key, JSON.stringify(data));
     } catch (error) {
       console.error(error);
     }
   }
 
-  async get(): Promise<D | null> {
+  async get(nestedKey?: string): Promise<D | null> {
+    const key = nestedKey ? this.createKey(nestedKey) : this.rootKey;
+
     try {
-      const storedItem = await AsyncStorage.getItem(this.key);
+      const storedItem = await AsyncStorage.getItem(key);
       const parsedItem = JSON.parse(storedItem as string);
 
-      return parsedItem || this.defaultValue;
+      return parsedItem;
     } catch (error) {
-      return this.defaultValue;
+      return null;
     }
   }
 
-  async remove() {
+  async remove(nestedKey?: string) {
+    const key = nestedKey ? this.createKey(nestedKey) : this.rootKey;
+
     try {
-      await AsyncStorage.removeItem(this.key);
+      await AsyncStorage.removeItem(key);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async update(nestedKey: string, data: D) {
+    const key = nestedKey ? this.createKey(nestedKey) : this.rootKey;
+    try {
+      await AsyncStorage.mergeItem(key, JSON.stringify(data));
     } catch (error) {
       console.error(error);
     }
@@ -51,10 +66,9 @@ class AsyncStorageItem<D> {
   }
 }
 
-const asyncStorage = (email: string) => {
-  return {
-    user: new AsyncStorageItem<User>(`user${email}`),
-  };
+const storage = {
+  sessionEmail: new AsyncStorageItem<string>('sessionEmail'), // for get session email
+  userEmail: new AsyncStorageItem<User>('userEmail'), // for get current user
 };
 
-export default asyncStorage;
+export default storage;
