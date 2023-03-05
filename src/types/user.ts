@@ -1,6 +1,8 @@
-export type User = {
+export type UserStorage = {
   email: string;
-  userId: number;
+  password: string;
   fullName?: string | null;
   avatar?: string | null;
 };
+
+export type User = Omit<UserStorage, 'password'>;

@@ -7,14 +7,28 @@ const style = reactNative.StyleSheet.create({
     padding: 30,
     backgroundColor: '#555',
   },
-  appButtonContainer: {
-    backgroundColor: '#009788',
+  buttonSignInContainer: {
+    backgroundColor: '#009688',
     borderRadius: 10,
     paddingVertical: 10,
-    paddingHorizontal: 12,
+    marginHorizontal: 30,
+    marginBottom: 30,
   },
-  appButtonText: {
+  buttonLinkSignUpContainer: {
+    backgroundColor: '#8a2be2',
+    borderRadius: 10,
+    paddingVertical: 10,
+    marginHorizontal: 40,
+  },
+  buttonSignInText: {
     fontSize: 18,
+    color: '#fff',
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    textTransform: 'uppercase',
+  },
+  buttonLinkSignUpText: {
+    fontSize: 20,
     color: '#fff',
     fontWeight: 'bold',
     alignSelf: 'center',
@@ -34,6 +48,13 @@ const style = reactNative.StyleSheet.create({
     borderColor: '#dc143c',
     backgroundColor: '#ffb6c1',
     opacity: 0.8,
+  },
+  inputContainer: {
+    marginBottom: 10,
+  },
+  inputText: {
+    fontSize: 18,
+    color: '#2e8b57',
   },
 });
 

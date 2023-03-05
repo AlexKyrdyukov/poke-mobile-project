@@ -4,26 +4,28 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
+import type { ParamListBase } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import type { SignInData } from 'src/utils/userHelper/signIn';
 
-import Button from 'src/ui/components/Button';
 import Input from 'src/ui/components/Input';
+import Button from 'src/ui/components/Button';
 import dataValidation from 'src/utils/validationSchemas';
+import { userHelper } from 'src/utils';
+import { useAppDispatch } from 'src/store';
+import { userSliceActions } from 'src/store/slices/userSlice';
+
+import mail from 'src/ui/screens/SignIn/images/mail.png';
+import view from 'src/ui/screens/SignIn/images/view.png';
 
 import styles from './SignIn.style';
 
-type ParamList = {
-  SignIn?: undefined;
-};
-
-type Props = NativeStackScreenProps<ParamList, 'SignIn'>;
+type Props = NativeStackScreenProps<ParamListBase>;
 
 const SignIn: React.FC<Props> = (props) => {
   const { navigation } = props;
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
-  const mail = require('src/ui/screens/SignIn/images/mail.png');
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
-  const view = require('src/ui/screens/SignIn/images/view.png');
+
+  const dispatch = useAppDispatch();
 
   const schema = yup.object({
     email: dataValidation.requiredEmail,
@@ -37,14 +39,21 @@ const SignIn: React.FC<Props> = (props) => {
       password: '',
     },
   });
-  // eslint-disable-next-line no-console
-  const onSubmit = (data: { email: string; password: string }) => console.log(data, control);
+
+  const handleSignIn = async (data: SignInData) => {
+    try {
+      const user = await userHelper.signIn(data);
+      dispatch(userSliceActions.setUser(user));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <View style={styles.screenContainer}>
       <Text
         style={styles.titleStyle}
-      >SignIn screen
+      >Sign in please
       </Text>
       <Controller
         control={control}
@@ -52,10 +61,12 @@ const SignIn: React.FC<Props> = (props) => {
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
             placeHolder="Email"
+            placeHolderTextColor="#4b0082"
             errors={errors.email}
             type="numbers-and-punctuation"
             logo={mail}
-            outerStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
+            outerErrorStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
+            outerStyles={[styles.inputContainer, styles.inputText]}
             value={value}
             hintText="Enter your email"
             onBlur={onBlur}
@@ -69,10 +80,12 @@ const SignIn: React.FC<Props> = (props) => {
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
             placeHolder="Password"
+            placeHolderTextColor="#b22222"
             errors={errors.password}
             type="default"
             logo={view}
-            outerStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
+            outerErrorStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
+            outerStyles={[styles.inputContainer, styles.inputText]}
             value={value}
             hintText="Enter your password"
             onBlur={onBlur}
@@ -82,20 +95,22 @@ const SignIn: React.FC<Props> = (props) => {
         )}
       />
       <Button
-        style={[
-          styles.appButtonContainer,
-          styles.appButtonText,
+        opacity={0.3}
+        styles={[
+          styles.buttonSignInContainer,
+          styles.buttonSignInText,
         ]}
-        onPress={handleSubmit(onSubmit)}
-        >Sign in
+        onPress={handleSubmit(handleSignIn)}
+      >Sign in
       </Button>
       <Button
-        style={[
-          styles.appButtonContainer,
-          styles.appButtonText,
+        opacity={0.7}
+        styles={[
+          styles.buttonLinkSignUpContainer,
+          styles.buttonLinkSignUpText,
         ]}
         onPress={() => navigation.navigate('SignUp')}
-        >Go to sign up
+      >Go to sign up
       </Button>
     </View>
   );

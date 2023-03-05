@@ -1,31 +1,36 @@
 import React from 'react';
-import { View, TextInput, Image, TouchableOpacity, Text, Button } from 'react-native';
+import { View, TextInput, Image, TouchableOpacity, Text, Button, TextInputSelectionChangeEventData } from 'react-native';
 import type { ReactNode } from 'react';
 import type { KeyboardTypeOptions, TextStyle, ImageSourcePropType, NativeSyntheticEvent, TextInputFocusEventData, ViewStyle, StyleProp } from 'react-native';
 import type { FieldError } from 'react-hook-form';
+import hide from 'src/ui/screens/SignIn/images/hide.png';
 
 import styles from './Input.style';
 
 type Props = {
   placeHolder: string;
+  placeHolderTextColor: string;
   errors: FieldError | undefined;
   type: KeyboardTypeOptions | undefined;
   secure?: boolean | undefined;
   logo: ImageSourcePropType;
+  outerErrorStyles: StyleProp<ViewStyle | TextStyle>[];
   outerStyles: StyleProp<ViewStyle | TextStyle>[];
-  value: string;
+  value?: string;
   hintText: string;
-  onBlur: ((e: NativeSyntheticEvent<TextInputFocusEventData>) => void) | undefined;
-  onChangeText: ((text: string) => void) | undefined;
+  onBlur: ((e: NativeSyntheticEvent<TextInputFocusEventData>) => void);
+  onChangeText?: ((text: string) => void) | undefined;
 };
 
 const Input: React.FC<Props> = (props) => {
-  const [imageState, setImageState] = React.useState(true);
-  const [selection, setSelection] = React.useState({ start: 0, end: 0 });
+  const [inputState, setInputState] = React.useState({
+    visiblePassword: true,
+    inputFocus: false,
+  });
 
-  const [errorSectionStyle, errorTextStyle] = props.outerStyles;
   const {
     placeHolder,
+    placeHolderTextColor,
     errors,
     type,
     secure,
@@ -35,46 +40,66 @@ const Input: React.FC<Props> = (props) => {
     onBlur,
     onChangeText,
   } = props;
-  // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
-  const hide = require('src/ui/screens/SignIn/images/hide.png');
 
-  const handleInputState = () => {
-    setImageState(!imageState);
+  const [errorSectionStyle, errorTextStyle] = props.outerErrorStyles;
+  const [sectionStyle, textStyle] = props.outerStyles;
+
+  const handleVisibleText = () => {
+    setInputState({
+      ...inputState,
+      visiblePassword: !inputState.visiblePassword,
+    });
+  };
+  const handleFocus = () => {
+    setInputState({
+      ...inputState,
+      inputFocus: !inputState.inputFocus,
+    });
+  };
+
+  const handleBlur = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    onBlur(event);
+    setInputState({
+      ...inputState,
+      inputFocus: !inputState.inputFocus,
+    });
   };
 
   return (
-    <View style={styles.componentContainer}>
-      <View style={styles.container}>
-        <View style={[
-          styles.sectionStyle,
+    <View
+      style={[styles.componentContainer, sectionStyle]}
+    >
+      <View
+        style={[
+          styles.inputRowContainer,
+          inputState.inputFocus && styles.inputFocusStyle,
           !!errors?.message && errorSectionStyle]}
+      >
+        <TouchableOpacity
+          onPress={handleVisibleText}
+          disabled={!secure}
         >
-          <TouchableOpacity
-            onPress={handleInputState}
-            disabled={!secure}
-          >
-            <Image
-              source={
-                secure && imageState
-                  ? hide
-                  : logo
-              }
-              style={styles.imageStyle}
-            />
-          </TouchableOpacity>
-          <TextInput
-            secureTextEntry={secure && imageState}
-            style={
-              styles.textInputStyle}
-            placeholder={placeHolder}
-            underlineColorAndroid="transparent"
-            onBlur={onBlur}
-            onChangeText={onChangeText}
-            value={value}
-            keyboardType={type}
-            autoFocus
+          <Image
+            source={
+              secure && inputState.visiblePassword
+                ? hide
+                : logo
+            }
+            style={styles.imageStyle}
           />
-        </View>
+        </TouchableOpacity>
+        <TextInput
+          secureTextEntry={secure && inputState.visiblePassword}
+          style={[styles.inputStyle, textStyle]}
+          placeholder={placeHolder}
+          underlineColorAndroid="transparent"
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          onChangeText={onChangeText}
+          value={value}
+          keyboardType={type}
+          placeholderTextColor={placeHolderTextColor}
+        />
       </View>
       <Text
         style={[

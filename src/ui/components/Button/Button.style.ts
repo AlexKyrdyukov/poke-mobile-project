@@ -2,8 +2,7 @@ import reactNative from 'react-native';
 
 const styles = reactNative.StyleSheet.create({
   appButtonContainer: {
-    marginTop: 30,
-    backgroundColor: '#009688',
+    backgroundColor: '#ba55d3',
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 12,

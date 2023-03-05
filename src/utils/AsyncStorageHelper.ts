@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import type { User } from 'src/types/user';
+import type { UserStorage } from 'src/types/user';
 
 class AsyncStorageItem<D> {
   rootKey: string;
@@ -14,7 +14,7 @@ class AsyncStorageItem<D> {
     return `${this.rootKey}:${nestedKey}`;
   };
 
-  async set(nestedKey: string, data: D) {
+  async set(data: D, nestedKey?: string) {
     const key = nestedKey ? this.createKey(nestedKey) : this.rootKey;
 
     try {
@@ -68,7 +68,7 @@ class AsyncStorageItem<D> {
 
 const storage = {
   sessionEmail: new AsyncStorageItem<string>('sessionEmail'), // for get session email
-  userEmail: new AsyncStorageItem<User>('userEmail'), // for get current user
+  user: new AsyncStorageItem<UserStorage>('user'), // for get current user add user email as key
 };
 
 export default storage;

@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 
-const Home: React.FC = () => {
+const ProfileNavigator: React.FC = () => {
   return (
     <View>
-      <Text>Home</Text>
+      <Text>ProfileNavigator</Text>
     </View>
   );
 };
 
-export default React.memo(Home);
+export default ProfileNavigator;

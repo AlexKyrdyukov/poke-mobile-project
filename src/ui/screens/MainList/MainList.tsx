@@ -1,14 +1,45 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import * as nativeStack from '@react-navigation/native-stack';
 
-import style from './MainList.style';
+const Stack = nativeStack.createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-const MainList: React.FC = () => {
+function Feed() {
+  return <Text>Feed!</Text>;
+}
+
+function Messages() {
+  return <Text>Messages!</Text>;
+}
+
+function Home() {
   return (
-    <View style={style.sectionContainer}>
-      <Text>MainList</Text>
-    </View>
+    <Tab.Navigator>
+      <Tab.Screen name="Feed" component={Feed} />
+      <Tab.Screen name="Messages" component={Messages} />
+    </Tab.Navigator>
   );
-};
+}
 
-export default MainList;
+function Profile() {
+  return <Text>Profile!</Text>;
+}
+
+function Settings() {
+  return <Text>Settings!</Text>;
+}
+
+function App() {
+  return (
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Settings" component={Settings} />
+      </Stack.Navigator>
+  );
+}
+
+export default App;

@@ -1,21 +1,25 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { View, Text } from 'react-native';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Controller, useForm } from 'react-hook-form';
+import type { SignUpData } from 'src/utils/userHelper/create';
 
 import Input from 'src/ui/components/Input';
 import Button from 'src/ui/components/Button';
+
 import dataValidation from 'src/utils/validationSchemas';
+import { userHelper } from 'src/utils';
+import { useAppDispatch } from 'src/store';
+import { userSliceActions } from 'src/store/slices/userSlice';
+
+import mail from 'src/ui/screens/SignIn/images/mail.png';
+import view from 'src/ui/screens/SignIn/images/view.png';
 
 import styles from './SignUp.style';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
-const mail = require('src/ui/screens/SignIn/images/mail.png');
-// eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
-const view = require('src/ui/screens/SignIn/images/view.png');
-
 const SignUp: React.FC = () => {
+  const dispatch = useAppDispatch();
   const schema = yup.object({
     email: dataValidation.requiredEmail,
     password: dataValidation.requiredPassword,
@@ -30,11 +34,22 @@ const SignUp: React.FC = () => {
       repeatPassword: '',
     },
   });
-  // eslint-disable-next-line no-console, max-len
-  const onSubmit = (data: { email: string; password: string; repeatPassword: string }) => console.log(data, control);
+
+  const handleCreateUser = async (data: SignUpData) => {
+    try {
+      const user = await userHelper.create(data);
+      dispatch(userSliceActions.setUser(user));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <View style={styles.screenContainer}>
-      <Text>SignUp screen</Text>
+      <Text
+        style={styles.titleStyle}
+      >Sign up please
+      </Text>
       <Controller
         control={control}
         name="email"
@@ -44,10 +59,12 @@ const SignUp: React.FC = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
             placeHolder="Email"
+            placeHolderTextColor="#6b8e23"
             errors={errors.email}
             type="numbers-and-punctuation"
             logo={mail}
-            outerStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
+            outerErrorStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
+            outerStyles={[styles.inputContainer, styles.inputText]}
             value={value}
             hintText="Enter your email"
             onBlur={onBlur}
@@ -61,10 +78,12 @@ const SignUp: React.FC = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
             placeHolder="Password"
+            placeHolderTextColor="#4169e1"
             errors={errors.password}
             type="default"
             logo={view}
-            outerStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
+            outerErrorStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
+            outerStyles={[styles.inputContainer, styles.inputText]}
             value={value}
             hintText="Enter your password"
             onBlur={onBlur}
@@ -78,11 +97,13 @@ const SignUp: React.FC = () => {
         name="repeatPassword"
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            placeHolder="password"
+            placeHolder="Password"
+            placeHolderTextColor="#9400d3"
             errors={errors.repeatPassword}
             type="numbers-and-punctuation"
             logo={view}
-            outerStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
+            outerErrorStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
+            outerStyles={[styles.inputContainer, styles.inputText]}
             value={value}
             hintText="Enter your password again"
             onBlur={onBlur}
@@ -92,14 +113,14 @@ const SignUp: React.FC = () => {
         )}
       />
       <Button
-          style={[
-            styles.buttonContainer,
-            styles.buttonText,
-          ]}
-        onPress={handleSubmit(onSubmit)}
+        styles={[
+          styles.buttonSignUpContainer,
+          styles.buttonSignUpText,
+        ]}
+        opacity={0.8}
+        onPress={handleSubmit(handleCreateUser)}
       >Sign up
       </Button>
-
     </View>
   );
 };

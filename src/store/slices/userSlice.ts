@@ -10,6 +10,8 @@ export const userSlice = createSlice({
   initialState: getInitialState,
   reducers: {
     setUser(state, action) {
+      // eslint-disable-next-line no-console
+      console.log(action.payload);
       state.user = action.payload;
     },
     removeUser(state) {

@@ -2,23 +2,14 @@ import reactNative from 'react-native';
 
 const styles = reactNative.StyleSheet.create({
   componentContainer: {
-    marginBottom: 40,
+    marginBottom: 10,
   },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  sectionStyle: {
+  inputRowContainer: {
+    backgroundColor: '#b0e0e6',
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f0ffff',
     borderWidth: 0.5,
     borderColor: '#000',
-    height: 50,
-    borderRadius: 10,
-    marginTop: 10,
+    borderRadius: 5,
   },
   imageStyle: {
     padding: 10,
@@ -28,14 +19,18 @@ const styles = reactNative.StyleSheet.create({
     resizeMode: 'stretch',
     alignItems: 'center',
   },
-  textInputStyle: {
-    fontSize: 20,
-    flex: 1,
-    width: '100%',
+  inputStyle: {
+    fontSize: 16,
+    width: '80%',
     paddingLeft: 15,
+    color: '#000080',
+  },
+  inputFocusStyle: {
+    backgroundColor: '#f5fffa',
+    borderColor: '#00ff00',
   },
   hintText: {
-    marginTop: 40,
+    marginTop: 5,
     fontSize: 16,
     paddingLeft: 10,
     color: '#fdf5e6',

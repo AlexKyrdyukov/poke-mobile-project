@@ -1,25 +1,31 @@
 import React from 'react';
-import { Text, TouchableHighlight } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
+
 import styles from './Button.style';
 
 type Props = {
-  style: Record<string, string | number>[];
+  styles: Record<string, string | number>[];
   onPress: () => void;
+  opacity: number;
 } & React.PropsWithChildren;
 
 const Button: React.FC<Props> = (props) => {
-  const [buttonContainerStyles, buttonTextStyles] = props.style;
+  const { opacity, children, onPress } = props;
+  const [buttonContainerStyles, buttonTextStyles] = props.styles;
   return (
-    <TouchableHighlight
-      activeOpacity={0.5}
-      onPress={props.onPress}
-      style={[buttonContainerStyles, styles.appButtonContainer] }
+    <View
+      style={[styles.appButtonContainer, buttonContainerStyles]}
     >
-      <Text
-        style={[buttonTextStyles, styles.appButtonText]}
-      >{props.children}
-      </Text>
-    </TouchableHighlight>
+      <TouchableOpacity
+        activeOpacity={opacity}
+        onPress={onPress}
+      >
+        <Text
+          style={[styles.appButtonText, buttonTextStyles]}
+        >{children}
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
