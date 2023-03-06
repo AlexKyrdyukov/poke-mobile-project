@@ -2,12 +2,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import type { TypedUseSelectorHook } from 'react-redux';
-import userSlice from './slices/userSlice';
-import appSlice from './slices/appSlice';
+import userSlice from 'src/store/slices/userSlice';
+import appSlice from 'src/store/slices/appSlice';
+import pokemonSlice from 'src/store/slices/pokeSlice';
 
 const rootSlice = combineReducers({
-  userSlice,
   appSlice,
+  userSlice,
+  pokemonSlice,
 });
 
 export const store = configureStore({
