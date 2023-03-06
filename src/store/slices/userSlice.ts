@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { User } from 'src/types/user';
 
-const getInitialState = {
+const initialState = {
   user: null as User | null,
 };
 
 export const userSlice = createSlice({
   name: 'userSlice',
-  initialState: getInitialState,
+  initialState,
   reducers: {
     setUser(state, action) {
       // eslint-disable-next-line no-console

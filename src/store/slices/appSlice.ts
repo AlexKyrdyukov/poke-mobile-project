@@ -8,13 +8,13 @@ export type App = {
   theme: 'light' | 'dark' | null;
 };
 
-const getInitialState = {
+const initialState = {
   app: null as App | null,
 };
 
 export const appSlice = createSlice({
   name: 'appSlice',
-  initialState: getInitialState,
+  initialState,
   reducers: {},
 });
 

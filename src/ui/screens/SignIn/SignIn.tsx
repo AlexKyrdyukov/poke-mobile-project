@@ -18,7 +18,7 @@ import { userSliceActions } from 'src/store/slices/userSlice';
 import mail from 'src/ui/screens/SignIn/images/mail.png';
 import view from 'src/ui/screens/SignIn/images/view.png';
 
-import styles from './SignIn.style';
+import styles from './SignIn.styles';
 
 type Props = NativeStackScreenProps<ParamListBase>;
 
@@ -60,13 +60,16 @@ const SignIn: React.FC<Props> = (props) => {
         name="email"
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            placeHolder="Email"
+            placeholder="Email"
             placeHolderTextColor="#4b0082"
             errors={errors.email}
             type="numbers-and-punctuation"
+            underlineColorAndroid="transparent" 
             logo={mail}
-            outerErrorStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
-            outerStyles={[styles.inputContainer, styles.inputText]}
+            containerStyle={styles.inputContainer}
+            textStyle={styles.inputText}
+            containerErrorStyle={styles.errorSectionStyle}
+            textErrorStyle={styles.errorTextStyle}
             value={value}
             hintText="Enter your email"
             onBlur={onBlur}
@@ -79,13 +82,16 @@ const SignIn: React.FC<Props> = (props) => {
         name="password"
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            placeHolder="Password"
+            placeholder="Password"
             placeHolderTextColor="#b22222"
             errors={errors.password}
             type="default"
+            underlineColorAndroid="transparent"
             logo={view}
-            outerErrorStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
-            outerStyles={[styles.inputContainer, styles.inputText]}
+            containerStyle={styles.inputContainer}
+            textStyle={styles.inputText}
+            containerErrorStyle={styles.errorSectionStyle}
+            textErrorStyle={styles.errorTextStyle}
             value={value}
             hintText="Enter your password"
             onBlur={onBlur}
@@ -95,20 +101,16 @@ const SignIn: React.FC<Props> = (props) => {
         )}
       />
       <Button
-        opacity={0.3}
-        styles={[
-          styles.buttonSignInContainer,
-          styles.buttonSignInText,
-        ]}
+        activeOpacity={0.8}
+        containerStyle={styles.buttonSignInContainer}
+        textStyle={styles.buttonSignInText}
         onPress={handleSubmit(handleSignIn)}
       >Sign in
       </Button>
       <Button
-        opacity={0.7}
-        styles={[
-          styles.buttonLinkSignUpContainer,
-          styles.buttonLinkSignUpText,
-        ]}
+        activeOpacity={0.8}
+        containerStyle={styles.buttonLinkSignUpContainer}
+        textStyle={styles.buttonLinkSignUpText}
         onPress={() => navigation.navigate('SignUp')}
       >Go to sign up
       </Button>

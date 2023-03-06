@@ -10,7 +10,7 @@ import { userHelper } from 'src/utils';
 import { useAppDispatch } from 'src/store';
 import { userSliceActions } from 'src/store/slices/userSlice';
 
-import style from './Profile.style';
+import styles from './Profile.styles';
 
 type Props = NativeStackScreenProps<ParamListBase>;
 
@@ -38,26 +38,27 @@ const Profile: React.FC<Props> = (props) => {
   };
 
   return (
-    <View style={style.sectionContainer}>
+    <View style={styles.sectionContainer}>
       <Text>UserAccount</Text>
       <Button
         onPress={handleRemoveUser}
-        opacity={0.7}
-        styles={[{ color: 'red' }]}
+        activeOpacity={0.8}
+        containerStyle={styles.buttonSignInContainer}
+        textStyle={styles.buttonSignInText}
       >del user
       </Button>
       <Button
         onPress={handleLogOutUser}
-        opacity={0.7}
-
-        styles={[{ color: 'red' }]}
+        activeOpacity={0.8}
+        containerStyle={styles.buttonSignInContainer}
+        textStyle={styles.buttonSignInText}
       >log out
       </Button>
       <Button
         onPress={() => navigation.navigate('ChangePassword')}
-        opacity={0.7}
-
-        styles={[{ color: 'red' }]}
+        activeOpacity={0.8}
+        containerStyle={styles.buttonSignInContainer}
+        textStyle={styles.buttonSignInText}
       >Change Password
       </Button>
     </View>

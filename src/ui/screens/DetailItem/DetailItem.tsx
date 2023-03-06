@@ -1,11 +1,11 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 
-import style from './DetailItem.style';
+import styles from './DetailItem.styles';
 
 const DetailItem: React.FC = () => {
   return (
-    <View style={style.sectionContainer}>
+    <View style={styles.sectionContainer}>
       <Text>DetailItem</Text>
     </View>
   );

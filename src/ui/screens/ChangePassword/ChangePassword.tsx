@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import style from './ChangePassword.style';
+import style from './ChangePassword.styles';
 
 const ChangePassword: React.FC = () => {
   return (

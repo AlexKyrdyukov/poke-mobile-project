@@ -1,27 +1,29 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import styles from './Button.style';
+import type { TextStyle, ViewStyle, TouchableOpacityProps, StyleProp } from 'react-native';
+
+import styles from './Button.styles';
 
 type Props = {
-  styles: Record<string, string | number>[];
-  onPress: () => void;
-  opacity: number;
-} & React.PropsWithChildren;
+  textStyle: StyleProp<TextStyle>;
+  containerStyle: StyleProp<ViewStyle>;
+} & TouchableOpacityProps;
 
-const Button: React.FC<Props> = (props) => {
-  const { opacity, children, onPress } = props;
-  const [buttonContainerStyles, buttonTextStyles] = props.styles;
+const Button: React.FC<Props> = ({
+  children,
+  textStyle,
+  containerStyle,
+  ...props }) => {
   return (
     <View
-      style={[styles.appButtonContainer, buttonContainerStyles]}
+      style={[styles.appButtonContainer, containerStyle]}
     >
       <TouchableOpacity
-        activeOpacity={opacity}
-        onPress={onPress}
+        {...props}
       >
         <Text
-          style={[styles.appButtonText, buttonTextStyles]}
+          style={[styles.appButtonText, textStyle]}
         >{children}
         </Text>
       </TouchableOpacity>

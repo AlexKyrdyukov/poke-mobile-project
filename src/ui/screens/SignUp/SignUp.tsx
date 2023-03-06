@@ -16,7 +16,7 @@ import { userSliceActions } from 'src/store/slices/userSlice';
 import mail from 'src/ui/screens/SignIn/images/mail.png';
 import view from 'src/ui/screens/SignIn/images/view.png';
 
-import styles from './SignUp.style';
+import styles from './SignUp.styles';
 
 const SignUp: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -58,13 +58,16 @@ const SignUp: React.FC = () => {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            placeHolder="Email"
+            placeholder="Email"
             placeHolderTextColor="#6b8e23"
             errors={errors.email}
             type="numbers-and-punctuation"
             logo={mail}
-            outerErrorStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
-            outerStyles={[styles.inputContainer, styles.inputText]}
+            containerStyle={styles.inputContainer}
+            underlineColorAndroid="transparent"
+            textStyle={styles.inputText}
+            containerErrorStyle={styles.errorSectionStyle}
+            textErrorStyle={styles.errorTextStyle}
             value={value}
             hintText="Enter your email"
             onBlur={onBlur}
@@ -77,13 +80,15 @@ const SignUp: React.FC = () => {
         name="password"
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            placeHolder="Password"
+            placeholder="Password"
             placeHolderTextColor="#4169e1"
             errors={errors.password}
             type="default"
             logo={view}
-            outerErrorStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
-            outerStyles={[styles.inputContainer, styles.inputText]}
+            containerStyle={styles.inputContainer}
+            textStyle={styles.inputText}
+            containerErrorStyle={styles.errorSectionStyle}
+            textErrorStyle={styles.errorTextStyle}
             value={value}
             hintText="Enter your password"
             onBlur={onBlur}
@@ -97,13 +102,15 @@ const SignUp: React.FC = () => {
         name="repeatPassword"
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            placeHolder="Password"
+            placeholder="Password"
             placeHolderTextColor="#9400d3"
             errors={errors.repeatPassword}
             type="numbers-and-punctuation"
             logo={view}
-            outerErrorStyles={[styles.errorSectionStyle, styles.errorTextStyle]}
-            outerStyles={[styles.inputContainer, styles.inputText]}
+            containerStyle={styles.inputContainer}
+            textStyle={styles.inputText}
+            containerErrorStyle={styles.errorSectionStyle}
+            textErrorStyle={styles.errorTextStyle}
             value={value}
             hintText="Enter your password again"
             onBlur={onBlur}
@@ -113,12 +120,10 @@ const SignUp: React.FC = () => {
         )}
       />
       <Button
-        styles={[
-          styles.buttonSignUpContainer,
-          styles.buttonSignUpText,
-        ]}
-        opacity={0.8}
+        containerStyle={styles.buttonSignUpContainer}
+        textStyle={styles.buttonSignUpText}
         onPress={handleSubmit(handleCreateUser)}
+        activeOpacity={0.8}
       >Sign up
       </Button>
     </View>

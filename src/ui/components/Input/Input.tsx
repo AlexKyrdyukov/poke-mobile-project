@@ -1,48 +1,45 @@
 import React from 'react';
-import { View, TextInput, Image, TouchableOpacity, Text, Button, TextInputSelectionChangeEventData } from 'react-native';
+import { View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
+
 import type { ReactNode } from 'react';
-import type { KeyboardTypeOptions, TextStyle, ImageSourcePropType, NativeSyntheticEvent, TextInputFocusEventData, ViewStyle, StyleProp } from 'react-native';
+import type { KeyboardTypeOptions, TextStyle, ImageSourcePropType, NativeSyntheticEvent, TextInputFocusEventData, ViewStyle, TextInputProps, StyleProp } from 'react-native';
 import type { FieldError } from 'react-hook-form';
+
 import hide from 'src/ui/screens/SignIn/images/hide.png';
 
-import styles from './Input.style';
+import styles from './Input.styles';
 
 type Props = {
-  placeHolder: string;
+  placeholder: string;
   placeHolderTextColor: string;
   errors: FieldError | undefined;
   type: KeyboardTypeOptions | undefined;
   secure?: boolean | undefined;
   logo: ImageSourcePropType;
-  outerErrorStyles: StyleProp<ViewStyle | TextStyle>[];
-  outerStyles: StyleProp<ViewStyle | TextStyle>[];
+  containerStyle: StyleProp<ViewStyle>;
+  textStyle: StyleProp<TextStyle>;
+  containerErrorStyle: StyleProp<ViewStyle>;
+  textErrorStyle: StyleProp<TextStyle>;
   value?: string;
   hintText: string;
   onBlur: ((e: NativeSyntheticEvent<TextInputFocusEventData>) => void);
-  onChangeText?: ((text: string) => void) | undefined;
-};
+} & TextInputProps;
 
-const Input: React.FC<Props> = (props) => {
+const Input: React.FC<Props> = ({
+  containerStyle,
+  textStyle,
+  containerErrorStyle,
+  textErrorStyle,
+  errors,
+  secure,
+  logo,
+  hintText,
+  onBlur,
+  ...props }) => {
   const [inputState, setInputState] = React.useState({
     visiblePassword: true,
     inputFocus: false,
   });
-
-  const {
-    placeHolder,
-    placeHolderTextColor,
-    errors,
-    type,
-    secure,
-    logo,
-    value,
-    hintText,
-    onBlur,
-    onChangeText,
-  } = props;
-
-  const [errorSectionStyle, errorTextStyle] = props.outerErrorStyles;
-  const [sectionStyle, textStyle] = props.outerStyles;
 
   const handleVisibleText = () => {
     setInputState({
@@ -67,13 +64,13 @@ const Input: React.FC<Props> = (props) => {
 
   return (
     <View
-      style={[styles.componentContainer, sectionStyle]}
+      style={[styles.componentContainer, containerStyle]}
     >
       <View
         style={[
           styles.inputRowContainer,
           inputState.inputFocus && styles.inputFocusStyle,
-          !!errors?.message && errorSectionStyle]}
+          !!errors?.message && containerErrorStyle]}
       >
         <TouchableOpacity
           onPress={handleVisibleText}
@@ -89,23 +86,18 @@ const Input: React.FC<Props> = (props) => {
           />
         </TouchableOpacity>
         <TextInput
+          {...props}
           secureTextEntry={secure && inputState.visiblePassword}
           style={[styles.inputStyle, textStyle]}
-          placeholder={placeHolder}
-          underlineColorAndroid="transparent"
           onBlur={handleBlur}
           onFocus={handleFocus}
-          onChangeText={onChangeText}
-          value={value}
-          keyboardType={type}
-          placeholderTextColor={placeHolderTextColor}
         />
       </View>
       <Text
         style={[
           styles.hintText,
           !!errors?.message &&
-          errorTextStyle,
+          textErrorStyle,
         ]}
       >{(errors?.message || hintText) as ReactNode}
       </Text>
