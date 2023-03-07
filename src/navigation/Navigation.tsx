@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
-import AuthStack from 'src/navigation/authStack';
-import RootStack from 'src/navigation/rootStack';
+import AuthStack from 'src/navigation/AuthStack/AuthStack';
+import RootStack from 'src/navigation/RootStack/RootStack';
 import { useAppSelector } from 'src/store/store';
 
 const AppNavigation: React.FC = () => {

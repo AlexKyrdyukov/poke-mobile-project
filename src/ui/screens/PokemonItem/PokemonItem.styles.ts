@@ -1,16 +1,27 @@
 import reactNative from 'react-native';
 
 const styles = reactNative.StyleSheet.create({
-  containerStyles: {
+  containerCompanentStyles: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 40,
+  },
+  pokemonContainerStyles: {
+    borderRadius: 20,
+    backgroundColor: '#dcdcdc',
+    width: 220,
+    height: 250,
   },
   imageStyles: {
-    height: 200,
+    height: 170,
     width: 200,
   },
   textContainer: {
-    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  textStyle: {
+    color: '#0000cd',
+    fontSize: 16,
   },
 });
 

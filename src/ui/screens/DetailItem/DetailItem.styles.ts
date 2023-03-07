@@ -2,8 +2,11 @@ import reactNative from 'react-native';
 
 const style = reactNative.StyleSheet.create({
   sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+    flex: 1,
+  },
+  imageContainer: {
+    width: 100,
+    height: 100,
   },
 });
 

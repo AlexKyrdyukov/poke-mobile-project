@@ -11,12 +11,9 @@ export const pokeSlice = createSlice({
   initialState,
   reducers: {
     setPokemons(state, action: PayloadAction<Pokemon[]>) {
-      console.log(action.payload);
       state.pokemons = action.payload;
     },
     addPokemons(state, action) {
-      console.log(action.payload);
-
       if (state.pokemons) {
         state.pokemons = [...state.pokemons, ...action.payload];
       }

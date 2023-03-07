@@ -1,18 +1,22 @@
-import { View, Text, Image, ImageSourcePropType } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
-
 import type { Pokemon } from 'src/types/pokemon';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import type { ParamListBase } from '@react-navigation/native';
+
 import styles from './PokemonItem.styles';
 
 type Props = {
   pokemon: Pokemon;
+  handleNavigation: (name: string) => void;
 };
 
-const PokemonItem: React.FC<Props> = ({ pokemon }) => {
-  console.log(pokemon);
+// type Props = NativeStackScreenProps<ParamListBase>;
+
+const PokemonItem: React.FC<Props> = (props) => {
+  const { handleNavigation, pokemon } = props;
   const {
     name,
-    id,
     height,
     weight,
     sprites,
@@ -21,8 +25,12 @@ const PokemonItem: React.FC<Props> = ({ pokemon }) => {
   const image = sprites.front_default as string;
   return (
     <View
-      style={styles.containerStyles}
+      style={styles.containerCompanentStyles}
     >
+      <TouchableOpacity
+        onPress={() => handleNavigation(name)}
+        style={styles.pokemonContainerStyles}
+      >
       <Image
         style={styles.imageStyles}
         source={{ uri: image }}
@@ -30,11 +38,20 @@ const PokemonItem: React.FC<Props> = ({ pokemon }) => {
     <View
       style={styles.textContainer}
     >
-      <Text>Name: {name}</Text>
-      <Text>Height: {height}</Text>
-      <Text>Weight: {weight}</Text>
+      <Text
+      style={styles.textStyle}
+      >Name: {name}
+      </Text>
+      <Text
+            style={styles.textStyle}
+      >Height: {height}
+      </Text>
+      <Text
+            style={styles.textStyle}
+      >Weight: {weight}
+      </Text>
     </View>
-
+      </TouchableOpacity>
     </View>
   );
 };

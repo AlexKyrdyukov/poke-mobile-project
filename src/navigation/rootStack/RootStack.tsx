@@ -1,39 +1,25 @@
 import React from 'react';
-import { Image } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import type { ImageSourcePropType } from 'react-native';
+import * as nativeStack from '@react-navigation/native-stack';
 
-import Home from 'src/ui/screens/Home';
-import MainList from 'src/ui/screens/MainList';
-import Profile from 'src/ui/screens/Profile';
+import TabNavigation from 'src/navigation/TabNavigation';
+import DetailItem from 'src/ui/screens/DetailItem';
+import ChangePassword from 'src/ui/screens/ChangePassword';
 
-import home from 'src/ui/images/home.png';
-import list from 'src/ui/images/list.png';
-import profile from 'src/ui/images/profile.png';
-
-const Tab = createBottomTabNavigator();
-
+type RootStackParamList = {
+  Root: undefined;
+  TabNavigation: undefined;
+  DetailItem: { name: string};
+  ChangePassword: undefined;
+};
+const Stack = nativeStack.createNativeStackNavigator<RootStackParamList>();
 const RootStack: React.FC = () => {
   return (
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: () => {
-            const icons: Record<string, ImageSourcePropType> = {
-              Home: home,
-              Profile: profile,
-              MainList: list,
-            };
-            return <Image source={icons[route.name]} />;
-          },
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'gray',
-        })}
-      >
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="MainList" component={MainList} />
-        <Tab.Screen name="Profile" component={Profile} />
-      </Tab.Navigator>
+    <Stack.Navigator initialRouteName="Root">
+      <Stack.Screen name="TabNavigation" component={TabNavigation} />
+      <Stack.Screen name="DetailItem" component={DetailItem} />
+      <Stack.Screen name="ChangePassword" component={ChangePassword} />
+    </Stack.Navigator>
   );
 };
 
-export default RootStack;
+export default React.memo(RootStack);

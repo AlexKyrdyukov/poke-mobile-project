@@ -3,11 +3,9 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import type { TypedUseSelectorHook } from 'react-redux';
 import userSlice from 'src/store/slices/userSlice';
-import appSlice from 'src/store/slices/appSlice';
 import pokemonSlice from 'src/store/slices/pokeSlice';
 
 const rootSlice = combineReducers({
-  appSlice,
   userSlice,
   pokemonSlice,
 });
