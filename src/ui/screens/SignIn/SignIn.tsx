@@ -6,14 +6,12 @@ import * as yup from 'yup';
 
 import type { ParamListBase } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import type { SignInData } from 'src/utils/userHelper/signIn';
 
 import Input from 'src/ui/components/Input';
 import Button from 'src/ui/components/Button';
+
+import { useUser } from 'src/hooks/useUser';
 import dataValidation from 'src/utils/validationSchemas';
-import { userHelper } from 'src/utils';
-import { useAppDispatch } from 'src/store';
-import { userSliceActions } from 'src/store/slices/userSlice';
 
 import mail from 'src/ui/screens/SignIn/images/mail.png';
 import view from 'src/ui/screens/SignIn/images/view.png';
@@ -25,7 +23,7 @@ type Props = NativeStackScreenProps<ParamListBase>;
 const SignIn: React.FC<Props> = (props) => {
   const { navigation } = props;
 
-  const dispatch = useAppDispatch();
+  const { signIn } = useUser();
 
   const schema = yup.object({
     email: dataValidation.requiredEmail,
@@ -39,15 +37,6 @@ const SignIn: React.FC<Props> = (props) => {
       password: '',
     },
   });
-
-  const handleSignIn = async (data: SignInData) => {
-    try {
-      const user = await userHelper.signIn(data);
-      dispatch(userSliceActions.setUser(user));
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <View style={styles.screenContainer}>
@@ -64,7 +53,7 @@ const SignIn: React.FC<Props> = (props) => {
             placeHolderTextColor="#4b0082"
             errors={errors.email}
             type="numbers-and-punctuation"
-            underlineColorAndroid="transparent" 
+            underlineColorAndroid="transparent"
             logo={mail}
             containerStyle={styles.inputContainer}
             textStyle={styles.inputText}
@@ -104,7 +93,7 @@ const SignIn: React.FC<Props> = (props) => {
         activeOpacity={0.8}
         containerStyle={styles.buttonSignInContainer}
         textStyle={styles.buttonSignInText}
-        onPress={handleSubmit(handleSignIn)}
+        onPress={handleSubmit(signIn)}
       >Sign in
       </Button>
       <Button

@@ -1,32 +1,37 @@
 import React from 'react';
 import { View } from 'react-native';
 import { yupResolver } from '@hookform/resolvers/yup';
-
+import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+
 import Button from 'src/ui/components/Button';
 import Input from 'src/ui/components/Input';
 
 import dataValidation from 'src/utils/validationSchemas';
-import { Controller, useForm } from 'react-hook-form';
+import { useUser } from 'src/hooks/useUser';
+
 import view from 'src/ui/screens/SignIn/images/view.png';
+
 import styles from './ChangePassword.styles';
 
 const ChangePassword: React.FC = () => {
+  const { changePassword } = useUser();
+
   const schema = yup.object({
     password: dataValidation.requiredPassword,
-    repeatPassword: dataValidation.confirmPassword,
+    newPassword: dataValidation.newPassword,
+    confirmNewPassword: dataValidation.confirmNewPassword,
   });
+
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       password: '',
       newPassword: '',
-      confirmPassword: '',
+      confirmNewPassword: '',
     },
   });
 
-  // eslint-disable-next-line no-console
-  const submit = ((data: object) => console.log(data));
   return (
     <View style={styles.sectionContainer}>
       <Controller
@@ -75,12 +80,12 @@ const ChangePassword: React.FC = () => {
       />
       <Controller
         control={control}
-        name="confirmPassword"
+        name="confirmNewPassword"
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
             placeholder="Password"
             placeHolderTextColor="#9400d3"
-            errors={errors.confirmPassword}
+            errors={errors.confirmNewPassword}
             type="numbers-and-punctuation"
             logo={view}
             containerStyle={styles.inputContainer}
@@ -98,7 +103,7 @@ const ChangePassword: React.FC = () => {
       <Button
         containerStyle={styles.buttonContainer}
         textStyle={styles.buttonText}
-        onPress={handleSubmit(submit)}
+        onPress={handleSubmit(changePassword)}
         activeOpacity={0.8}
       >change password
       </Button>

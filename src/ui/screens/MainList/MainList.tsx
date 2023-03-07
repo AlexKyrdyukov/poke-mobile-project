@@ -5,7 +5,7 @@ import type { Pokemon } from 'src/types/pokemon';
 import type { ParamListBase } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { useFetchPokemons } from 'src/hooks/useFetchPokemons';
+import { usePokemons } from 'src/hooks/usePokemons';
 
 import PokemonItem from '../PokemonItem';
 
@@ -27,7 +27,7 @@ const MainList: React.FC<Props> = (props) => {
     onEndReached,
     isRefreshing,
     onRefresh,
-  } = useFetchPokemons();
+  } = usePokemons();
 
   const keyExtractor = React.useCallback((item: Pokemon) => {
     return item.name;

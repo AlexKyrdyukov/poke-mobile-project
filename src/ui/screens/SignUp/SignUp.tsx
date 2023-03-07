@@ -3,15 +3,12 @@ import * as yup from 'yup';
 import { View, Text } from 'react-native';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
-import type { SignUpData } from 'src/utils/userHelper/create';
 
 import Input from 'src/ui/components/Input';
 import Button from 'src/ui/components/Button';
 
 import dataValidation from 'src/utils/validationSchemas';
-import { userHelper } from 'src/utils';
-import { useAppDispatch } from 'src/store';
-import { userSliceActions } from 'src/store/slices/userSlice';
+import { useUser } from 'src/hooks/useUser';
 
 import mail from 'src/ui/screens/SignIn/images/mail.png';
 import view from 'src/ui/screens/SignIn/images/view.png';
@@ -19,7 +16,7 @@ import view from 'src/ui/screens/SignIn/images/view.png';
 import styles from './SignUp.styles';
 
 const SignUp: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const { signUp } = useUser();
   const schema = yup.object({
     email: dataValidation.requiredEmail,
     password: dataValidation.requiredPassword,
@@ -34,15 +31,6 @@ const SignUp: React.FC = () => {
       repeatPassword: '',
     },
   });
-
-  const handleCreateUser = async (data: SignUpData) => {
-    try {
-      const user = await userHelper.create(data);
-      dispatch(userSliceActions.setUser(user));
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <View style={styles.screenContainer}>
@@ -122,7 +110,7 @@ const SignUp: React.FC = () => {
       <Button
         containerStyle={styles.buttonSignUpContainer}
         textStyle={styles.buttonSignUpText}
-        onPress={handleSubmit(handleCreateUser)}
+        onPress={handleSubmit(signUp)}
         activeOpacity={0.8}
       >Sign up
       </Button>

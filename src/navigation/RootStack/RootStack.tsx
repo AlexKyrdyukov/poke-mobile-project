@@ -11,6 +11,7 @@ type RootStackParamList = {
   DetailItem: { name: string};
   ChangePassword: undefined;
 };
+
 const Stack = nativeStack.createNativeStackNavigator<RootStackParamList>();
 const RootStack: React.FC = () => {
   return (
