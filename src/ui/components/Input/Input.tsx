@@ -5,7 +5,7 @@ import type { ReactNode } from 'react';
 import type { KeyboardTypeOptions, TextStyle, ImageSourcePropType, NativeSyntheticEvent, TextInputFocusEventData, ViewStyle, TextInputProps, StyleProp } from 'react-native';
 import type { FieldError } from 'react-hook-form';
 
-import hide from 'src/ui/screens/SignIn/images/hide.png';
+import { images } from 'src/consts/images';
 
 import styles from './Input.styles';
 
@@ -79,7 +79,7 @@ const Input: React.FC<Props> = ({
           <Image
             source={
               secure && inputState.visiblePassword
-                ? hide
+                ? images.inputComponent.hide
                 : logo
             }
             style={styles.imageStyle}

@@ -1,4 +1,4 @@
-import { View, ActivityIndicator, Image, ScrollView, Text } from 'react-native';
+import { View, ActivityIndicator, Image, ScrollView, Text, FlatList } from 'react-native';
 import React from 'react';
 
 import type { ParamListBase } from '@react-navigation/native';
@@ -17,6 +17,19 @@ const DetailItem: React.FC<Props> = ({ route }) => {
 
   const { isLoading, links, pokemon } = usePokemon(name);
 
+  const renderItem = React.useCallback((data: { item: string }) => (
+    <View
+      style={styles.imageContainer}
+    >
+      <Image
+        style={styles.imageStyles}
+        key={data.item}
+        source={{ uri: data.item }
+        }
+      />
+    </View>
+  ), []);
+
   return (
     <View
       style={styles.componentContainer}
@@ -24,39 +37,38 @@ const DetailItem: React.FC<Props> = ({ route }) => {
       {isLoading
         ? <ActivityIndicator size="large" />
         : (
-          <ScrollView>
-            <View
-              style={styles.textContainer}
-            >
-            <Text
-              style={styles.textStyle}
-            >Name: {pokemon?.name}
-            </Text>
-            <Text
-              style={styles.textStyle}
-            >Height: {pokemon?.height}
-            </Text>
-            <Text
-              style={styles.textStyle}
-            >Weight: {pokemon?.weight}
-            </Text>
+          <>
+            <View>
+              <View
+                style={styles.textContainer}
+              >
+                <Text
+                  style={styles.textStyle}
+                >Name: {pokemon?.name}
+                </Text>
+                <Text
+                  style={styles.textStyle}
+                >Height: {pokemon?.height}
+                </Text>
+                <Text
+                  style={styles.textStyle}
+                >Weight: {pokemon?.weight}
+                </Text>
+                <Text
+                  style={styles.textStyle}
+                >Total image: {links?.length}
+                </Text>
+              </View>
             </View>
-            <View
+            <FlatList
               style={styles.sectionContainer}
-            >{
-                links?.map((item) => (
-                  <Image
-                    style={styles.imageContainer}
-                    key={item}
-                    source={{ uri: item }
-                    }
-                  />
-                ))}
-            </View>
-          </ScrollView>
+              data={links}
+              renderItem={renderItem}
+            />
+          </>
         )
       }
-    </View>
+    </View >
   );
 };
 

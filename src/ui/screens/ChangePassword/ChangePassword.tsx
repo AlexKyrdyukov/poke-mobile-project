@@ -10,12 +10,12 @@ import Input from 'src/ui/components/Input';
 import dataValidation from 'src/utils/validationSchemas';
 import { useUser } from 'src/hooks/useUser';
 
-import view from 'src/ui/screens/SignIn/images/view.png';
+import { images } from 'src/consts/images';
 
 import styles from './ChangePassword.styles';
 
 const ChangePassword: React.FC = () => {
-  const { changePassword } = useUser();
+  const { changePassword, isSuccesful, setIsSuccessFul } = useUser();
 
   const schema = yup.object({
     password: dataValidation.requiredPassword,
@@ -23,7 +23,7 @@ const ChangePassword: React.FC = () => {
     confirmNewPassword: dataValidation.confirmNewPassword,
   });
 
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       password: '',
@@ -31,6 +31,18 @@ const ChangePassword: React.FC = () => {
       confirmNewPassword: '',
     },
   });
+
+  React.useEffect(() => {
+    if (isSubmitSuccessful && isSuccesful) {
+      reset({
+        password: '',
+        newPassword: '',
+        confirmNewPassword: '',
+      });
+      setIsSuccessFul(true);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSubmitSuccessful, isSuccesful]);
 
   return (
     <View style={styles.sectionContainer}>
@@ -43,7 +55,7 @@ const ChangePassword: React.FC = () => {
             placeHolderTextColor="#4169e1"
             errors={errors.password}
             type="default"
-            logo={view}
+            logo={images.inputComponent.view}
             containerStyle={styles.inputContainer}
             textStyle={styles.inputText}
             containerErrorStyle={styles.errorSectionStyle}
@@ -65,7 +77,7 @@ const ChangePassword: React.FC = () => {
             placeHolderTextColor="#9400d3"
             errors={errors.newPassword}
             type="numbers-and-punctuation"
-            logo={view}
+            logo={images.inputComponent.view}
             containerStyle={styles.inputContainer}
             textStyle={styles.inputText}
             containerErrorStyle={styles.errorSectionStyle}
@@ -87,7 +99,7 @@ const ChangePassword: React.FC = () => {
             placeHolderTextColor="#9400d3"
             errors={errors.confirmNewPassword}
             type="numbers-and-punctuation"
-            logo={view}
+            logo={images.inputComponent.view}
             containerStyle={styles.inputContainer}
             textStyle={styles.inputText}
             containerErrorStyle={styles.errorSectionStyle}

@@ -24,6 +24,7 @@ const MainList: React.FC<Props> = (props) => {
   const {
     pokemons,
     isloading,
+    isUpdating,
     onEndReached,
     isRefreshing,
     onRefresh,
@@ -48,16 +49,22 @@ const MainList: React.FC<Props> = (props) => {
       style={styles.sectionContainer}
     >{isloading
       ? <ActivityIndicator size="large" />
-      : (<FlatList
-        data={pokemons}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        onEndReachedThreshold={1}
-        onEndReached={onEndReached}
-        refreshing={isRefreshing}
-        onRefresh={onRefresh}
-      />)
-      }
+      : (
+        <><FlatList
+          data={pokemons}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          onEndReachedThreshold={1}
+          onEndReached={onEndReached}
+          refreshing={isRefreshing}
+          onRefresh={onRefresh}
+        />
+          {isUpdating && (<ActivityIndicator
+            style={styles.indicatorStyles}
+            size="large"
+          />)}
+        </>
+      )}
     </View>
   );
 };

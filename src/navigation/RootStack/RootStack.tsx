@@ -8,7 +8,7 @@ import ChangePassword from 'src/ui/screens/ChangePassword';
 type RootStackParamList = {
   Root: undefined;
   TabNavigation: undefined;
-  DetailItem: { name: string};
+  DetailItem: { name: string };
   ChangePassword: undefined;
 };
 
@@ -16,9 +16,9 @@ const Stack = nativeStack.createNativeStackNavigator<RootStackParamList>();
 const RootStack: React.FC = () => {
   return (
     <Stack.Navigator initialRouteName="Root">
-      <Stack.Screen name="TabNavigation" component={TabNavigation} />
-      <Stack.Screen name="DetailItem" component={DetailItem} />
-      <Stack.Screen name="ChangePassword" component={ChangePassword} />
+      <Stack.Screen name="TabNavigation" options={{ headerShown: false }} component={TabNavigation} />
+      <Stack.Screen name="DetailItem" options={{ headerShown: false }} component={DetailItem} />
+      <Stack.Screen name="ChangePassword" options={{ headerShown: false }} component={ChangePassword} />
     </Stack.Navigator>
   );
 };

@@ -10,8 +10,7 @@ import Button from 'src/ui/components/Button';
 import dataValidation from 'src/utils/validationSchemas';
 import { useUser } from 'src/hooks/useUser';
 
-import mail from 'src/ui/screens/SignIn/images/mail.png';
-import view from 'src/ui/screens/SignIn/images/view.png';
+import { images } from 'src/consts/images';
 
 import styles from './SignUp.styles';
 
@@ -50,7 +49,7 @@ const SignUp: React.FC = () => {
             placeHolderTextColor="#6b8e23"
             errors={errors.email}
             type="numbers-and-punctuation"
-            logo={mail}
+            logo={images.inputComponent.mail}
             containerStyle={styles.inputContainer}
             underlineColorAndroid="transparent"
             textStyle={styles.inputText}
@@ -72,7 +71,7 @@ const SignUp: React.FC = () => {
             placeHolderTextColor="#4169e1"
             errors={errors.password}
             type="default"
-            logo={view}
+            logo={images.inputComponent.view}
             containerStyle={styles.inputContainer}
             textStyle={styles.inputText}
             containerErrorStyle={styles.errorSectionStyle}
@@ -94,7 +93,7 @@ const SignUp: React.FC = () => {
             placeHolderTextColor="#9400d3"
             errors={errors.repeatPassword}
             type="numbers-and-punctuation"
-            logo={view}
+            logo={images.inputComponent.view}
             containerStyle={styles.inputContainer}
             textStyle={styles.inputText}
             containerErrorStyle={styles.errorSectionStyle}

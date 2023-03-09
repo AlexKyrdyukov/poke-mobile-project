@@ -11,6 +11,7 @@ export const usePokemons = () => {
   const pokemons = useAppSelector(({ rootSlice }) => rootSlice.pokemonSlice.pokemons);
   const [isloading, setIsLoading] = React.useState(true);
   const [isRefreshing, setIsRefreshing] = React.useState(false);
+  const [isUpdating, setIsUpdating] = React.useState(false);
 
   React.useEffect(() => {
     (async () => {
@@ -27,13 +28,14 @@ export const usePokemons = () => {
 
   const onEndReached = async () => {
     if (pokemons?.length) {
+      setIsUpdating(true);
       const response = await pokemonApi.getPokemons(pokemons.length, LIMIT);
       const request = response.results.map((item) => {
         return pokemonApi.getById(item.name);
       });
       const data = await Promise.all(request);
       dispatch(pokeSliceActions.addPokemons(data));
-      setIsLoading(false);
+      setIsUpdating(false);
     }
   };
 
@@ -52,6 +54,7 @@ export const usePokemons = () => {
     pokemons,
     isloading,
     onRefresh,
+    isUpdating,
     isRefreshing,
     onEndReached,
   };

@@ -13,16 +13,13 @@ import Button from 'src/ui/components/Button';
 import { useUser } from 'src/hooks/useUser';
 import dataValidation from 'src/utils/validationSchemas';
 
-import mail from 'src/ui/screens/SignIn/images/mail.png';
-import view from 'src/ui/screens/SignIn/images/view.png';
+import { images } from 'src/consts/images';
 
 import styles from './SignIn.styles';
 
 type Props = NativeStackScreenProps<ParamListBase>;
 
-const SignIn: React.FC<Props> = (props) => {
-  const { navigation } = props;
-
+const SignIn: React.FC<Props> = ({ navigation }) => {
   const { signIn } = useUser();
 
   const schema = yup.object({
@@ -54,7 +51,7 @@ const SignIn: React.FC<Props> = (props) => {
             errors={errors.email}
             type="numbers-and-punctuation"
             underlineColorAndroid="transparent"
-            logo={mail}
+            logo={images.inputComponent.mail}
             containerStyle={styles.inputContainer}
             textStyle={styles.inputText}
             containerErrorStyle={styles.errorSectionStyle}
@@ -76,7 +73,7 @@ const SignIn: React.FC<Props> = (props) => {
             errors={errors.password}
             type="default"
             underlineColorAndroid="transparent"
-            logo={view}
+            logo={images.inputComponent.view}
             containerStyle={styles.inputContainer}
             textStyle={styles.inputText}
             containerErrorStyle={styles.errorSectionStyle}

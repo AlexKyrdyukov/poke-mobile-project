@@ -23,7 +23,7 @@ type PasswordsData = {
 export const useUser = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(({ rootSlice }) => rootSlice.userSlice.user);
-
+  const [isSuccesful, setIsSuccessFul] = React.useState(false);
   React.useEffect(() => {
     (async () => {
       try {
@@ -126,6 +126,7 @@ export const useUser = () => {
         password: newPassword,
       };
       await storage.user.update(currentEmail, newUser);
+      setIsSuccessFul(true);
     } catch (error) {
       console.error(error);
     }
@@ -133,6 +134,8 @@ export const useUser = () => {
 
   return {
     user,
+    isSuccesful,
+    setIsSuccessFul,
     signIn,
     signUp,
     remove,

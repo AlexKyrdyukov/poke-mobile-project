@@ -4,7 +4,7 @@ const style = reactNative.StyleSheet.create({
   sectionContainer: {
     flex: 1,
     justifyContent: 'center',
-    marginHorizontal: 40,
+    backgroundColor: '#ffe4b5',
   },
   errorTextStyle: {
     color: 'red',
