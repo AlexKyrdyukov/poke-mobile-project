@@ -5,16 +5,19 @@ export const COLORS = {
         border: '#ff0000',
         background: '#ff69b4',
         text: '#fff5ee',
+        placeHolderTextColor: '#4169e1',
       },
       primary: {
         border: '#663399',
         background: '#b0e0e6',
         text: '#000',
+        placeHolderTextColor: '#008000',
       },
       focus: {
         border: '#00ff00',
         background: '#f5fffa',
         text: '#dc143c',
+        placeHolderTextColor: '#20b2aa',
       },
     },
     light: {
@@ -37,7 +40,7 @@ export const COLORS = {
   },
   screen: {
     dark: {
-      background: '#191970',
+      background: '#696969',
     },
     light: {
       background: '#fff5ee',
@@ -46,7 +49,7 @@ export const COLORS = {
   button: {
     dark: {
       border: '#fff5ee',
-      background: '#483d8b',
+      background: '#808080',
       text: '#fff',
     },
     ligt: {

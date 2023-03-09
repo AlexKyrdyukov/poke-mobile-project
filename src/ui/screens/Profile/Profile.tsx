@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-// import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { View } from 'react-native';
 
 import type { ParamListBase } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Button from 'src/ui/components/Button';
+import UserAvatar from 'src/ui/screens/components/UserAvatar';
+import CheckBox from 'src/ui/components/CheckBox/CheckBox';
 import { useUser } from 'src/hooks/useUser';
 
 import styles from './Profile.styles';
@@ -13,16 +14,12 @@ import styles from './Profile.styles';
 type Props = NativeStackScreenProps<ParamListBase>;
 
 const Profile: React.FC<Props> = (props) => {
-  const [resourcePath, setResoursePath] = React.useState<Record<string, string>>();
   const { remove, logOut } = useUser();
   const { navigation } = props;
 
-  const getPhoto = async () => {
-    // const result = await launchCamera({});
-  };
   return (
     <View style={styles.sectionContainer}>
-      <Text>UserAccount</Text>
+      <UserAvatar />
       <Button
         onPress={remove}
         activeOpacity={0.8}
@@ -44,20 +41,7 @@ const Profile: React.FC<Props> = (props) => {
         textStyle={styles.buttonSignInText}
       >Change Password
       </Button>
-      <Button
-        onPress={getPhoto}
-        activeOpacity={0.8}
-        containerStyle={styles.buttonSignInContainer}
-        textStyle={styles.buttonSignInText}
-      >get from lib
-      </Button>
-      <Button
-        // onPress={createPhoto}
-        activeOpacity={0.8}
-        containerStyle={styles.buttonSignInContainer}
-        textStyle={styles.buttonSignInText}
-      >create
-      </Button>
+      <CheckBox />
     </View>
   );
 };

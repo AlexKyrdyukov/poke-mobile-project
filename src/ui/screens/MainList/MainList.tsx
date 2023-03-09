@@ -7,7 +7,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { usePokemons } from 'src/hooks/usePokemons';
 
-import PokemonItem from '../PokemonItem';
+import PokemonItem from '../components/PokemonItem/PokemonItem';
 
 import styles from './MainList.styles';
 

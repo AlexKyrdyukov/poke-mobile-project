@@ -9,12 +9,13 @@ import Button from 'src/ui/components/Button';
 
 import dataValidation from 'src/utils/validationSchemas';
 import { useUser } from 'src/hooks/useUser';
+import { useTheme } from 'src/hooks/useTheme';
 
 import { images } from 'src/consts/images';
-
 import styles from './SignUp.styles';
 
 const SignUp: React.FC = () => {
+  const { themeState } = useTheme();
   const { signUp } = useUser();
   const schema = yup.object({
     email: dataValidation.requiredEmail,
@@ -46,7 +47,6 @@ const SignUp: React.FC = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
             placeholder="Email"
-            placeHolderTextColor="#6b8e23"
             errors={errors.email}
             type="numbers-and-punctuation"
             logo={images.inputComponent.mail}
@@ -68,7 +68,6 @@ const SignUp: React.FC = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
             placeholder="Password"
-            placeHolderTextColor="#4169e1"
             errors={errors.password}
             type="default"
             logo={images.inputComponent.view}
@@ -90,7 +89,6 @@ const SignUp: React.FC = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
             placeholder="Password"
-            placeHolderTextColor="#9400d3"
             errors={errors.repeatPassword}
             type="numbers-and-punctuation"
             logo={images.inputComponent.view}

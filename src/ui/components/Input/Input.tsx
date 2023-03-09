@@ -4,14 +4,12 @@ import { View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
 import type { ReactNode } from 'react';
 import type { KeyboardTypeOptions, TextStyle, ImageSourcePropType, NativeSyntheticEvent, TextInputFocusEventData, ViewStyle, TextInputProps, StyleProp } from 'react-native';
 import type { FieldError } from 'react-hook-form';
-
 import { images } from 'src/consts/images';
 
 import styles from './Input.styles';
 
 type Props = {
   placeholder: string;
-  placeHolderTextColor: string;
   errors: FieldError | undefined;
   type: KeyboardTypeOptions | undefined;
   secure?: boolean | undefined;

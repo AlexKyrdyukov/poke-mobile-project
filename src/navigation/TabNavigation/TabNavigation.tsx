@@ -1,3 +1,4 @@
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from 'src/ui/screens/Home';
@@ -10,12 +11,18 @@ import ProfileLogo from 'src/images/profile.svg';
 
 const Tab = createBottomTabNavigator();
 
-const MyTabs: React.FC = () => {
+const TabNavigation: React.FC = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: '#e91e63',
-        tabBarItemStyle: { borderRightWidth: 1, borderRightColor: 'red' },
+        tabBarActiveTintColor: '#fff5ee',
+        tabBarActiveBackgroundColor: '#fa8072',
+        tabBarItemStyle: {
+          borderRadius: 20,
+          borderStartWidth: 2,
+          borderWidth: 1,
+          borderColor: '#191970',
+        },
       }}
     >
       <Tab.Screen
@@ -23,11 +30,10 @@ const MyTabs: React.FC = () => {
         component={Home}
         options={{
           tabBarStyle: {
-            // backgroundColor: 'red',
           },
           tabBarLabel: 'Home',
-          tabBarIcon: ({ focused, color, size }) => (
-            <HomeLogo fill={focused ? color : 'white'} width={20} height={20} />
+          tabBarIcon: ({ focused, color }) => (
+            <HomeLogo fill={focused ? color : '#00ff00'} width={20} height={20} />
           ),
         }}
       />
@@ -36,11 +42,10 @@ const MyTabs: React.FC = () => {
         component={MainList}
         options={{
           tabBarStyle: {
-            // backgroundColor: 'blue',
           },
           tabBarLabel: 'List',
-          tabBarIcon: ({ focused, color, size }) => (
-            <ListLogo fill={focused ? color : 'white'} width={20} height={20} />
+          tabBarIcon: ({ focused, color }) => (
+            <ListLogo fill={focused ? color : '#da70d6'} width={20} height={20} />
           ),
         }}
       />
@@ -49,11 +54,10 @@ const MyTabs: React.FC = () => {
         component={Profile}
         options={{
           tabBarStyle: {
-            // backgroundColor: 'green',
           },
           tabBarLabel: 'Profile',
-          tabBarIcon: ({ focused, color, size }) => (
-            <ProfileLogo fill={focused ? color : 'white'} stroke="red" width={20} height={20} />
+          tabBarIcon: ({ focused, color }) => (
+            <ProfileLogo fill={focused ? color : '#00ffff'} stroke="red" width={20} height={20} />
           ),
         }}
       />
@@ -61,4 +65,4 @@ const MyTabs: React.FC = () => {
   );
 };
 
-export default MyTabs;
+export default React.memo(TabNavigation);

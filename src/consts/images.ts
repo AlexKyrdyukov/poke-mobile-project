@@ -1,6 +1,7 @@
 import mail from 'src/ui/components/Input/images/mail.png';
 import hide from 'src/ui/components/Input/images/hide.png';
 import view from 'src/ui/components/Input/images/view.png';
+import profile from 'src/ui/screens/components/UserAvatar/images/profile.png';
 
 export const images = {
   homePage: {
@@ -11,4 +12,5 @@ export const images = {
     hide,
     mail,
   },
+  profile,
 };
