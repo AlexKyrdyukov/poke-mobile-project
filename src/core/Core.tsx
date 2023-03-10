@@ -6,12 +6,15 @@
  */
 
 import React from 'react';
+import { NotifierWrapper } from 'react-native-notifier';
 
-import AppNavigation from 'src/navigation';
+import Navigation from 'src/navigation';
 
 const Core: React.FC = () => {
   return (
-    <AppNavigation />
+    <NotifierWrapper>
+      <Navigation />
+    </NotifierWrapper>
   );
 };
 
