@@ -1,4 +1,7 @@
 import React from 'react';
+import type { ImagePickerResponse } from 'react-native-image-picker';
+import { Notifier, NotifierComponents } from 'react-native-notifier';
+
 import { useAppDispatch, useAppSelector } from 'src/store';
 import { userSliceActions } from 'src/store/slices/userSlice';
 import storage from 'src/utils/AsyncStorageHelper';
@@ -45,16 +48,40 @@ export const useUser = () => {
       const userStorage = await storage.user.get(email);
 
       if (!userStorage) {
-        throw new Error('user not found');
+        Notifier.showNotification({
+          title: 'The request was failed',
+          description: 'user not found',
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+        return;
       }
       if (password !== userStorage.password) {
-        throw new Error('enntered password invalid');
+        Notifier.showNotification({
+          title: 'The request was failed',
+          description: 'Entered password invalid',
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+        return;
       }
 
       const user: Partial<typeof userStorage> = userStorage;
       delete user.password;
       await storage.sessionEmail.set(email);
       dispatch(userSliceActions.setUser(user));
+      Notifier.showNotification({
+        title: 'The request was success',
+        description: 'Welcome in PokemonGo',
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'success',
+        },
+      });
     } catch (error) {
       console.error(error);
       throw error;
@@ -68,7 +95,15 @@ export const useUser = () => {
       const existenceUser = await storage.user.get(email);
 
       if (existenceUser) {
-        throw new Error('user with this email already exist');
+        Notifier.showNotification({
+          title: 'The request was failed',
+          description: 'user with this email already exist',
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+        return;
       }
 
       delete data.repeatPassword;
@@ -78,6 +113,15 @@ export const useUser = () => {
       const user: Partial<typeof data> = data;
       delete user.password;
       dispatch(userSliceActions.setUser(user));
+      dispatch(userSliceActions.setUser(user));
+      Notifier.showNotification({
+        title: 'The request was success',
+        description: 'Welcome in PokemonGo',
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'success',
+        },
+      });
     } catch (error) {
       console.error(error);
       return null;
@@ -88,10 +132,26 @@ export const useUser = () => {
     try {
       const currentEmail = await storage.sessionEmail.get();
       if (!currentEmail) {
-        throw new Error();
+        Notifier.showNotification({
+          title: 'The request was success',
+          description: 'unknown error repeat request',
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+        return;
       }
       await storage.user.remove(currentEmail);
       dispatch(userSliceActions.removeUser());
+      Notifier.showNotification({
+        title: 'The request was success',
+        description: 'User success deleted',
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'success',
+        },
+      });
     } catch (error) {
       console.error(error);
       throw error;
@@ -103,6 +163,14 @@ export const useUser = () => {
       await storage.sessionEmail.remove();
       dispatch(userSliceActions.removeUser());
     } catch (error) {
+      Notifier.showNotification({
+        title: 'The request was failed',
+        description: 'unknown error repeat request',
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
       console.error(error);
     }
   };
@@ -112,14 +180,38 @@ export const useUser = () => {
       const { password, newPassword } = data;
       const currentEmail = await storage.sessionEmail.get();
       if (!currentEmail) {
-        throw new Error();
+        Notifier.showNotification({
+          title: 'The request was failed',
+          description: 'unknown error repeat request and check entered data',
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+        return;
       }
       const user = await storage.user.get(currentEmail);
       if (!user) {
-        throw new Error('user not found');
+        Notifier.showNotification({
+          title: 'The request was failed',
+          description: 'user not found',
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+        return;
       }
       if (password !== user.password) {
-        throw new Error('Entered password invalid');
+        Notifier.showNotification({
+          title: 'The request was failed',
+          description: 'enteres password invalid',
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+        return;
       }
       const newUser = {
         ...user,
@@ -127,6 +219,48 @@ export const useUser = () => {
       };
       await storage.user.update(currentEmail, newUser);
       setIsSuccessFul(true);
+      Notifier.showNotification({
+        title: 'The request was success',
+        description: 'password was success updated',
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'success',
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const savePhoto = async (response: ImagePickerResponse) => {
+    try {
+      const { assets } = response;
+      if (!assets?.length) {
+        return;
+      }
+      const [file] = assets;
+      const { uri } = file;
+      if (!user) {
+        return;
+      }
+      const userStorage = await storage.user.get(user.email);
+      if (!userStorage) {
+        return;
+      }
+      const savedUser = {
+        ...userStorage,
+        avatar: uri,
+      };
+      await storage.user.update(user.email, savedUser);
+      dispatch(userSliceActions.setUser(savedUser));
+      Notifier.showNotification({
+        title: 'The request was success',
+        description: 'avatat was success loaded',
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'success',
+        },
+      });
     } catch (error) {
       console.error(error);
     }
@@ -134,12 +268,13 @@ export const useUser = () => {
 
   return {
     user,
-    isSuccesful,
-    setIsSuccessFul,
     signIn,
     signUp,
     remove,
     logOut,
+    savePhoto,
+    isSuccesful,
     changePassword,
+    setIsSuccessFul,
   };
 };

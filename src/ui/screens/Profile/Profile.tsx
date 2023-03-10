@@ -25,7 +25,7 @@ const Profile: React.FC<Props> = (props) => {
         activeOpacity={0.8}
         containerStyle={styles.buttonSignInContainer}
         textStyle={styles.buttonSignInText}
-      >del user
+      >delete user
       </Button>
       <Button
         onPress={logOut}

@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
-import type { Pokemon } from 'src/types/pokemon';
+import type { Pokemon, Sprites } from 'src/types/pokemon';
 
 import styles from './PokemonItem.styles';
 
@@ -17,8 +17,12 @@ const PokemonItem: React.FC<Props> = (props) => {
     weight,
     sprites,
   } = pokemon;
+  const image = sprites?.back_default;
 
-  const image = sprites.front_default as string;
+  const isString = (image: string | Record<string, string | object>): image is string => {
+    return (image as string).length !== undefined;
+  };
+
   return (
     <View
       style={styles.containerCompanentStyles}
@@ -27,26 +31,28 @@ const PokemonItem: React.FC<Props> = (props) => {
         onPress={() => handleNavigation(name)}
         style={styles.pokemonContainerStyles}
       >
-      <Image
-        style={styles.imageStyles}
-        source={{ uri: image }}
-/>
-    <View
-      style={styles.textContainer}
-    >
-      <Text
-      style={styles.textStyle}
-      >Name: {name}
-      </Text>
-      <Text
+        {isString(image) &&
+          (<Image
+            style={styles.imageStyles}
+            source={{ uri: image }}
+          />)
+        }
+        <View
+          style={styles.textContainer}
+        >
+          <Text
             style={styles.textStyle}
-      >Height: {height}
-      </Text>
-      <Text
+          >Name: {name}
+          </Text>
+          <Text
             style={styles.textStyle}
-      >Weight: {weight}
-      </Text>
-    </View>
+          >Height: {height}
+          </Text>
+          <Text
+            style={styles.textStyle}
+          >Weight: {weight}
+          </Text>
+        </View>
       </TouchableOpacity>
     </View>
   );
