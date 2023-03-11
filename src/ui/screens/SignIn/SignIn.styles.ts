@@ -1,35 +1,37 @@
 import reactNative from 'react-native';
+import { colors } from 'src/consts/colors';
+import type { Theme } from 'src/types/theme';
 
-const style = reactNative.StyleSheet.create({
+const style = (props: Theme) => reactNative.StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: 'center',
     padding: 30,
-    backgroundColor: '#555',
+    backgroundColor: colors.screen[props.theme].background,
   },
   buttonSignInContainer: {
-    backgroundColor: '#009688',
+    backgroundColor: colors.button[props.theme].background,
     borderRadius: 10,
     paddingVertical: 10,
     marginHorizontal: 30,
     marginBottom: 30,
   },
   buttonLinkSignUpContainer: {
-    backgroundColor: '#8a2be2',
+    backgroundColor: colors.button[props.theme].background,
     borderRadius: 10,
     paddingVertical: 10,
     marginHorizontal: 40,
   },
   buttonSignInText: {
     fontSize: 18,
-    color: '#fff',
+    color: colors.button[props.theme].text,
     fontWeight: 'bold',
     alignSelf: 'center',
     textTransform: 'uppercase',
   },
   buttonLinkSignUpText: {
     fontSize: 20,
-    color: '#fff',
+    color: colors.button[props.theme].text,
     fontWeight: 'bold',
     alignSelf: 'center',
     textTransform: 'uppercase',
@@ -45,8 +47,8 @@ const style = reactNative.StyleSheet.create({
     color: 'red',
   },
   errorSectionStyle: {
-    borderColor: '#dc143c',
-    backgroundColor: '#ffb6c1',
+    borderColor: colors.input[props.theme].error.border,
+    backgroundColor: colors.input[props.theme].error.background,
     opacity: 0.8,
   },
   inputContainer: {
@@ -54,7 +56,7 @@ const style = reactNative.StyleSheet.create({
   },
   inputText: {
     fontSize: 18,
-    color: '#2e8b57',
+    color: colors.input[props.theme].primary.text,
   },
 });
 

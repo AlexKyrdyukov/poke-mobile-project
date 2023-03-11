@@ -9,12 +9,13 @@ import Input from 'src/ui/components/Input';
 
 import dataValidation from 'src/utils/validationSchemas';
 import { useUser } from 'src/hooks/useUser';
-
-import { images } from 'src/consts/images';
+import useTheme from 'src/hooks/useTheme';
+import OpenEye from 'src/assets/icons/eye_open.svg';
 
 import styles from './ChangePassword.styles';
 
 const ChangePassword: React.FC = () => {
+  const { theme } = useTheme();
   const { changePassword, isSuccesful, setIsSuccessFul } = useUser();
 
   const schema = yup.object({
@@ -41,25 +42,24 @@ const ChangePassword: React.FC = () => {
       });
       setIsSuccessFul(true);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful, isSuccesful]);
 
   return (
-    <View style={styles.sectionContainer}>
+    <View style={styles({ theme }).sectionContainer}>
       <Controller
         control={control}
         name="password"
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
             placeholder="Password"
-            placeHolderTextColor="#4169e1"
             errors={errors.password}
             type="default"
-            logo={images.inputComponent.view}
-            containerStyle={styles.inputContainer}
-            textStyle={styles.inputText}
-            containerErrorStyle={styles.errorSectionStyle}
-            textErrorStyle={styles.errorTextStyle}
+            Logo={OpenEye}
+            containerStyle={styles({ theme }).inputContainer}
+            textStyle={styles({ theme }).inputText}
+            containerErrorStyle={styles({ theme }).errorSectionStyle}
+            textErrorStyle={styles({ theme }).errorTextStyle}
             value={value}
             hintText="Enter your password"
             onBlur={onBlur}
@@ -74,14 +74,13 @@ const ChangePassword: React.FC = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
             placeholder="Password"
-            placeHolderTextColor="#9400d3"
             errors={errors.newPassword}
             type="numbers-and-punctuation"
-            logo={images.inputComponent.view}
-            containerStyle={styles.inputContainer}
-            textStyle={styles.inputText}
-            containerErrorStyle={styles.errorSectionStyle}
-            textErrorStyle={styles.errorTextStyle}
+            Logo={OpenEye}
+            containerStyle={styles({ theme }).inputContainer}
+            textStyle={styles({ theme }).inputText}
+            containerErrorStyle={styles({ theme }).errorSectionStyle}
+            textErrorStyle={styles({ theme }).errorTextStyle}
             value={value}
             hintText="Enter new password"
             onBlur={onBlur}
@@ -96,14 +95,13 @@ const ChangePassword: React.FC = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
             placeholder="Password"
-            placeHolderTextColor="#9400d3"
             errors={errors.confirmNewPassword}
             type="numbers-and-punctuation"
-            logo={images.inputComponent.view}
-            containerStyle={styles.inputContainer}
-            textStyle={styles.inputText}
-            containerErrorStyle={styles.errorSectionStyle}
-            textErrorStyle={styles.errorTextStyle}
+            Logo={OpenEye}
+            containerStyle={styles({ theme }).inputContainer}
+            textStyle={styles({ theme }).inputText}
+            containerErrorStyle={styles({ theme }).errorSectionStyle}
+            textErrorStyle={styles({ theme }).errorTextStyle}
             value={value}
             hintText="Enter your password again"
             onBlur={onBlur}
@@ -113,12 +111,12 @@ const ChangePassword: React.FC = () => {
         )}
       />
       <Button
-        containerStyle={styles.buttonContainer}
-        textStyle={styles.buttonText}
+        containerStyle={styles({ theme }).buttonContainer}
+        textStyle={styles({ theme }).buttonText}
         onPress={handleSubmit(changePassword)}
         activeOpacity={0.8}
-      >change password
-      </Button>
+        title="change password"
+      />
     </View>
   );
 };

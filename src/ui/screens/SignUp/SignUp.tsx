@@ -9,14 +9,14 @@ import Button from 'src/ui/components/Button';
 
 import dataValidation from 'src/utils/validationSchemas';
 import { useUser } from 'src/hooks/useUser';
-import { useTheme } from 'src/hooks/useTheme';
-
-import { images } from 'src/consts/images';
+import useTheme from 'src/hooks/useTheme';
+import Email from 'src/assets/icons/email.svg';
+import OpenEye from 'src/assets/icons/eye_open.svg';
 import styles from './SignUp.styles';
 
 const SignUp: React.FC = () => {
-  const { themeState } = useTheme();
   const { signUp } = useUser();
+  const { theme } = useTheme();
   const schema = yup.object({
     email: dataValidation.requiredEmail,
     password: dataValidation.requiredPassword,
@@ -33,9 +33,9 @@ const SignUp: React.FC = () => {
   });
 
   return (
-    <View style={styles.screenContainer}>
+    <View style={styles({ theme }).screenContainer}>
       <Text
-        style={styles.titleStyle}
+        style={styles({ theme }).titleStyle}
       >Sign up please
       </Text>
       <Controller
@@ -49,12 +49,12 @@ const SignUp: React.FC = () => {
             placeholder="Email"
             errors={errors.email}
             type="numbers-and-punctuation"
-            logo={images.inputComponent.mail}
-            containerStyle={styles.inputContainer}
+            Logo={Email}
+            containerStyle={styles({ theme }).inputContainer}
             underlineColorAndroid="transparent"
-            textStyle={styles.inputText}
-            containerErrorStyle={styles.errorSectionStyle}
-            textErrorStyle={styles.errorTextStyle}
+            textStyle={styles({ theme }).inputText}
+            containerErrorStyle={styles({ theme }).errorSectionStyle}
+            textErrorStyle={styles({ theme }).errorTextStyle}
             value={value}
             hintText="Enter your email"
             onBlur={onBlur}
@@ -70,11 +70,11 @@ const SignUp: React.FC = () => {
             placeholder="Password"
             errors={errors.password}
             type="default"
-            logo={images.inputComponent.view}
-            containerStyle={styles.inputContainer}
-            textStyle={styles.inputText}
-            containerErrorStyle={styles.errorSectionStyle}
-            textErrorStyle={styles.errorTextStyle}
+            Logo={OpenEye}
+            containerStyle={styles({ theme }).inputContainer}
+            textStyle={styles({ theme }).inputText}
+            containerErrorStyle={styles({ theme }).errorSectionStyle}
+            textErrorStyle={styles({ theme }).errorTextStyle}
             value={value}
             hintText="Enter your password"
             onBlur={onBlur}
@@ -91,11 +91,11 @@ const SignUp: React.FC = () => {
             placeholder="Password"
             errors={errors.repeatPassword}
             type="numbers-and-punctuation"
-            logo={images.inputComponent.view}
-            containerStyle={styles.inputContainer}
-            textStyle={styles.inputText}
-            containerErrorStyle={styles.errorSectionStyle}
-            textErrorStyle={styles.errorTextStyle}
+            Logo={OpenEye}
+            containerStyle={styles({ theme }).inputContainer}
+            textStyle={styles({ theme }).inputText}
+            containerErrorStyle={styles({ theme }).errorSectionStyle}
+            textErrorStyle={styles({ theme }).errorTextStyle}
             value={value}
             hintText="Enter your password again"
             onBlur={onBlur}
@@ -105,12 +105,12 @@ const SignUp: React.FC = () => {
         )}
       />
       <Button
-        containerStyle={styles.buttonSignUpContainer}
-        textStyle={styles.buttonSignUpText}
+        containerStyle={styles({ theme }).buttonSignUpContainer}
+        textStyle={styles({ theme }).buttonSignUpText}
         onPress={handleSubmit(signUp)}
         activeOpacity={0.8}
-      >Sign up
-      </Button>
+        title="Sign up"
+      />
     </View>
   );
 };

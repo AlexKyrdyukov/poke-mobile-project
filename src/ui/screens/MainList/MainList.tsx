@@ -6,8 +6,8 @@ import type { ParamListBase } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { usePokemons } from 'src/hooks/usePokemons';
-
-import PokemonItem from '../components/PokemonItem/PokemonItem';
+import useTheme from 'src/hooks/useTheme';
+import PokemonItem from '../components/PokemonItem';
 
 import styles from './MainList.styles';
 
@@ -20,6 +20,7 @@ type PokemonData = {
 type Props = NativeStackScreenProps<ParamListBase>;
 
 const MainList: React.FC<Props> = (props) => {
+  const { theme } = useTheme();
   const { navigation } = props;
   const {
     pokemons,
@@ -46,7 +47,7 @@ const MainList: React.FC<Props> = (props) => {
 
   return (
     <View
-      style={styles.sectionContainer}
+      style={styles({ theme }).sectionContainer}
     >{isloading
       ? <ActivityIndicator size="large" />
       : (
@@ -60,7 +61,7 @@ const MainList: React.FC<Props> = (props) => {
           onRefresh={onRefresh}
         />
           {isUpdating && (<ActivityIndicator
-            style={styles.indicatorStyles}
+            style={styles({ theme }).indicatorStyles}
             size="large"
           />)}
         </>
@@ -69,4 +70,4 @@ const MainList: React.FC<Props> = (props) => {
   );
 };
 
-export default MainList;
+export default React.memo(MainList);

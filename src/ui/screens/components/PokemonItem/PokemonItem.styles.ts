@@ -1,6 +1,8 @@
 import reactNative from 'react-native';
+import { colors } from 'src/consts/colors';
+import type { Theme } from 'src/types/theme';
 
-const styles = reactNative.StyleSheet.create({
+const styles = (props: Theme) => reactNative.StyleSheet.create({
   containerCompanentStyles: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -8,7 +10,7 @@ const styles = reactNative.StyleSheet.create({
   },
   pokemonContainerStyles: {
     borderRadius: 20,
-    backgroundColor: '#dcdcdc',
+    backgroundColor: colors.screen[props.theme].imageContainer,
     width: 220,
     height: 250,
   },
@@ -20,7 +22,7 @@ const styles = reactNative.StyleSheet.create({
     alignItems: 'center',
   },
   textStyle: {
-    color: '#0000cd',
+    color: colors.screen[props.theme].text,
     fontSize: 16,
   },
 });

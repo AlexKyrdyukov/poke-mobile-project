@@ -1,30 +1,36 @@
 import reactNative from 'react-native';
+import { colors } from 'src/consts/colors';
+import type { Theme } from 'src/types/theme';
 
-const style = reactNative.StyleSheet.create({
+const style = (props: Theme) => reactNative.StyleSheet.create({
   sectionContainer: {
     flex: 1,
     marginTop: 32,
     paddingHorizontal: 24,
+    backgroundColor: colors.screen[props.theme].background,
   },
   buttonSignInContainer: {
-    backgroundColor: '#009688',
+    backgroundColor: colors.button[props.theme].background,
     borderRadius: 10,
     paddingVertical: 10,
     marginHorizontal: 30,
     marginBottom: 30,
   },
   buttonLinkSignUpContainer: {
-    backgroundColor: '#8a2be2',
+    backgroundColor: colors.button[props.theme].background,
     borderRadius: 10,
     paddingVertical: 10,
     marginHorizontal: 40,
   },
   buttonSignInText: {
     fontSize: 18,
-    color: '#fff',
+    color: colors.button[props.theme].text,
     fontWeight: 'bold',
     alignSelf: 'center',
     textTransform: 'uppercase',
+  },
+  checkBoxStyle: {
+    marginLeft: 30,
   },
 });
 

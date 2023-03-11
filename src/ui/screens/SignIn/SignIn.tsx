@@ -11,9 +11,11 @@ import Input from 'src/ui/components/Input';
 import Button from 'src/ui/components/Button';
 
 import { useUser } from 'src/hooks/useUser';
+import useTheme from 'src/hooks/useTheme';
 import dataValidation from 'src/utils/validationSchemas';
 
-import { images } from 'src/consts/images';
+import Email from 'src/assets/icons/email.svg';
+import OpenEye from 'src/assets/icons/eye_open.svg';
 
 import styles from './SignIn.styles';
 
@@ -21,7 +23,7 @@ type Props = NativeStackScreenProps<ParamListBase>;
 
 const SignIn: React.FC<Props> = ({ navigation }) => {
   const { signIn } = useUser();
-
+  const { theme } = useTheme();
   const schema = yup.object({
     email: dataValidation.requiredEmail,
     password: dataValidation.requiredPassword,
@@ -36,9 +38,9 @@ const SignIn: React.FC<Props> = ({ navigation }) => {
   });
 
   return (
-    <View style={styles.screenContainer}>
+    <View style={styles({ theme }).screenContainer}>
       <Text
-        style={styles.titleStyle}
+        style={styles({ theme }).titleStyle}
       >Sign in please
       </Text>
       <Controller
@@ -47,15 +49,14 @@ const SignIn: React.FC<Props> = ({ navigation }) => {
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
             placeholder="Email"
-            placeHolderTextColor="#4b0082"
             errors={errors.email}
             type="numbers-and-punctuation"
             underlineColorAndroid="transparent"
-            logo={images.inputComponent.mail}
-            containerStyle={styles.inputContainer}
-            textStyle={styles.inputText}
-            containerErrorStyle={styles.errorSectionStyle}
-            textErrorStyle={styles.errorTextStyle}
+            Logo={Email}
+            containerStyle={styles({ theme }).inputContainer}
+            textStyle={styles({ theme }).inputText}
+            containerErrorStyle={styles({ theme }).errorSectionStyle}
+            textErrorStyle={styles({ theme }).errorTextStyle}
             value={value}
             hintText="Enter your email"
             onBlur={onBlur}
@@ -69,15 +70,14 @@ const SignIn: React.FC<Props> = ({ navigation }) => {
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
             placeholder="Password"
-            placeHolderTextColor="#b22222"
             errors={errors.password}
             type="default"
             underlineColorAndroid="transparent"
-            logo={images.inputComponent.view}
-            containerStyle={styles.inputContainer}
-            textStyle={styles.inputText}
-            containerErrorStyle={styles.errorSectionStyle}
-            textErrorStyle={styles.errorTextStyle}
+            Logo={OpenEye}
+            containerStyle={styles({ theme }).inputContainer}
+            textStyle={styles({ theme }).inputText}
+            containerErrorStyle={styles({ theme }).errorSectionStyle}
+            textErrorStyle={styles({ theme }).errorTextStyle}
             value={value}
             hintText="Enter your password"
             onBlur={onBlur}
@@ -88,18 +88,18 @@ const SignIn: React.FC<Props> = ({ navigation }) => {
       />
       <Button
         activeOpacity={0.8}
-        containerStyle={styles.buttonSignInContainer}
-        textStyle={styles.buttonSignInText}
+        containerStyle={styles({ theme }).buttonSignInContainer}
+        textStyle={styles({ theme }).buttonSignInText}
         onPress={handleSubmit(signIn)}
-      >Sign in
-      </Button>
+        title="Sign in"
+      />
       <Button
         activeOpacity={0.8}
-        containerStyle={styles.buttonLinkSignUpContainer}
-        textStyle={styles.buttonLinkSignUpText}
+        containerStyle={styles({ theme }).buttonLinkSignUpContainer}
+        textStyle={styles({ theme }).buttonLinkSignUpText}
         onPress={() => navigation.navigate('SignUp')}
-      >Go to sign up
-      </Button>
+        title="Go to sign up"
+      />
     </View>
   );
 };

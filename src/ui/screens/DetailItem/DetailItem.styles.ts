@@ -1,9 +1,11 @@
 import reactNative from 'react-native';
+import { colors } from 'src/consts/colors';
+import type { Theme } from 'src/types/theme';
 
-const style = reactNative.StyleSheet.create({
+const style = (props: Theme) => reactNative.StyleSheet.create({
   componentContainer: {
     flex: 1,
-    backgroundColor: '#800080',
+    backgroundColor: colors.screen[props.theme].background,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 24,
@@ -16,7 +18,7 @@ const style = reactNative.StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
-    backgroundColor: '#faebd7',
+    backgroundColor: colors.screen[props.theme].imageContainer,
     marginBottom: 20,
   },
   imageStyles: {
@@ -27,10 +29,9 @@ const style = reactNative.StyleSheet.create({
     marginTop: 0,
   },
   textStyle: {
-    color: '#fff5ee',
+    color: colors.screen[props.theme].text,
     fontSize: 32,
   },
-
 });
 
 export default style;

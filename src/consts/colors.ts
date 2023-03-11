@@ -1,4 +1,4 @@
-export const COLORS = {
+export const colors = {
   input: {
     dark: {
       error: {
@@ -21,7 +21,7 @@ export const COLORS = {
       },
     },
     light: {
-      light: {
+      error: {
         border: '#dc143c',
         background: '#ff69b4',
         text: '#000080',
@@ -41,18 +41,34 @@ export const COLORS = {
   screen: {
     dark: {
       background: '#696969',
+      text: '#fff5ee',
+      imageContainer: '#8fbc8f',
     },
     light: {
       background: '#fff5ee',
+      text: '#696969',
+      imageContainer: '#87cefa',
     },
   },
   button: {
     dark: {
       border: '#fff5ee',
+      background: '#fffaf0',
+      text: '#696969',
+    },
+    light: {
+      border: '#000000',
+      background: '#696969',
+      text: '#f8f8ff',
+    },
+  },
+  tabNavigation: {
+    dark: {
+      border: '#fff5ee',
       background: '#808080',
       text: '#fff',
     },
-    ligt: {
+    light: {
       border: '#000000',
       background: '#ffe4c4',
       text: '#8a2be2',

@@ -1,9 +1,11 @@
 import reactNative from 'react-native';
+import { colors } from 'src/consts/colors';
+import type { Theme } from 'src/types/theme';
 
-const style = reactNative.StyleSheet.create({
+const style = (props: Theme) => reactNative.StyleSheet.create({
   sectionContainer: {
     flex: 1,
-    backgroundColor: '#696969',
+    backgroundColor: colors.screen[props.theme].background,
   },
   indicatorStyles: {
     position: 'absolute',

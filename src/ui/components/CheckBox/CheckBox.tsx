@@ -1,31 +1,39 @@
 import React from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
-import On from 'src/ui/components/CheckBox/images/on.svg';
-import Off from 'src/ui/components/CheckBox/images/off.svg';
+import { View, Text, TouchableOpacity } from 'react-native';
+import type { TouchableOpacityProps, ViewStyle, StyleProp } from 'react-native';
 
-import { useTheme } from 'src/hooks/useTheme';
+import On from 'src/assets/icons/on.svg';
+import Off from 'src/assets/icons/off.svg';
 
 import styles from './CheckBox.styles';
 
-const CheckBox: React.FC = () => {
-  const { themeState, setThemeState } = useTheme();
+type Props = {
+  text: string;
+  label: string;
+  checkBoxState: boolean;
+  containerCheckBoxStyle: StyleProp<ViewStyle>;
+} & TouchableOpacityProps;
+
+const CheckBox: React.FC<Props> = ({
+  text,
+  label,
+  checkBoxState,
+  containerCheckBoxStyle,
+  ...props }) => {
   return (
     <View
-      style={styles.componentContainer}
+      style={[styles.componentContainer,
+        containerCheckBoxStyle]}
     >
       <TouchableOpacity
-        onPress={() => setThemeState(!themeState)}
+        {...props}
       >
-        {themeState
+        {checkBoxState
           ? <On width={40} height={40} />
           : <Off width={40} height={40} />}
       </TouchableOpacity>
       <Text>
-        Change Theme:
-        {themeState
-          ? ' dark'
-          : ' light'
-        }
+        {text}: {label}
       </Text>
     </View >
   );

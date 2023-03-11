@@ -1,21 +1,23 @@
 import reactNative from 'react-native';
+import { colors } from 'src/consts/colors';
+import type { Theme } from 'src/types/theme';
 
-const styles = reactNative.StyleSheet.create({
+const styles = (props: Theme) => reactNative.StyleSheet.create({
   sectionContainer: {
-    backgroundColor: '#ffebcd',
+    backgroundColor: colors.screen[props.theme].background,
     flex: 1,
   },
   textContainer: {
     padding: 30,
   },
   textStyle: {
-    color: '#8a2be2',
+    color: colors.screen[props.theme].text,
     fontSize: 22,
     marginBottom: 20,
   },
   imageContainerStyle: {
-    maxHeight: 400,
-    maxWidth: 400,
+    maxHeight: 300,
+    maxWidth: 300,
     marginBottom: 40,
   },
   imageStyle: {

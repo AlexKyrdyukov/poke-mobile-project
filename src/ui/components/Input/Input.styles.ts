@@ -1,39 +1,38 @@
 import reactNative from 'react-native';
+import { colors } from 'src/consts/colors';
+import type { Theme } from 'src/types/theme';
 
-const styles = reactNative.StyleSheet.create({
+const styles = (props: Theme) => reactNative.StyleSheet.create({
   componentContainer: {
     marginBottom: 10,
   },
   inputRowContainer: {
-    backgroundColor: '#b0e0e6',
+    backgroundColor: colors.input[props.theme].primary.background,
     flexDirection: 'row',
     borderWidth: 0.5,
-    borderColor: '#000',
+    borderColor: colors.input[props.theme].primary.border,
     borderRadius: 5,
-  },
-  imageStyle: {
-    padding: 10,
-    margin: 15,
-    height: 20,
-    width: 20,
-    resizeMode: 'stretch',
-    alignItems: 'center',
   },
   inputStyle: {
     fontSize: 16,
     width: '80%',
     paddingLeft: 15,
-    color: '#000080',
+    color: colors.input[props.theme].primary.text,
   },
   inputFocusStyle: {
-    backgroundColor: '#f5fffa',
-    borderColor: '#00ff00',
+    backgroundColor: colors.input[props.theme].focus.background,
+    borderColor: colors.input[props.theme].focus.border,
   },
   hintText: {
     marginTop: 5,
     fontSize: 16,
     paddingLeft: 10,
-    color: '#fdf5e6',
+    color: colors.input[props.theme].primary.text,
+  },
+  touchableStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingLeft: 10,
   },
 });
 
