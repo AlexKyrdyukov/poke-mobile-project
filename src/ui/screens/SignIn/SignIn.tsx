@@ -10,7 +10,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Input from 'src/ui/components/Input';
 import Button from 'src/ui/components/Button';
 
-import { useUser } from 'src/hooks/useUser';
+import useUser from 'src/hooks/useUser';
 import useTheme from 'src/hooks/useTheme';
 import dataValidation from 'src/utils/validationSchemas';
 

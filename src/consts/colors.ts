@@ -1,4 +1,4 @@
-export const colors = {
+const colors = {
   input: {
     dark: {
       error: {
@@ -85,3 +85,5 @@ export const colors = {
     },
   },
 };
+
+export default colors;

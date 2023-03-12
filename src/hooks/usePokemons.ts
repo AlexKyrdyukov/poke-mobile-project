@@ -6,7 +6,7 @@ import { pokeSliceActions } from 'src/store/slices/pokeSlice';
 
 const LIMIT = 20;
 
-export const usePokemons = () => {
+const usePokemons = () => {
   const dispatch = useAppDispatch();
   const pokemons = useAppSelector(({ rootSlice }) => rootSlice.pokemonSlice.pokemons);
   const [isloading, setIsLoading] = React.useState(true);
@@ -59,3 +59,5 @@ export const usePokemons = () => {
     onEndReached,
   };
 };
+
+export default usePokemons;

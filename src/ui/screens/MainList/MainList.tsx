@@ -5,7 +5,7 @@ import type { Pokemon } from 'src/types/pokemon';
 import type { ParamListBase } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { usePokemons } from 'src/hooks/usePokemons';
+import usePokemons from 'src/hooks/usePokemons';
 import useTheme from 'src/hooks/useTheme';
 import PokemonItem from '../components/PokemonItem';
 

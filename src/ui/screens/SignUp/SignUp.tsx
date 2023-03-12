@@ -8,8 +8,10 @@ import Input from 'src/ui/components/Input';
 import Button from 'src/ui/components/Button';
 
 import dataValidation from 'src/utils/validationSchemas';
-import { useUser } from 'src/hooks/useUser';
+
+import useUser from 'src/hooks/useUser';
 import useTheme from 'src/hooks/useTheme';
+
 import Email from 'src/assets/icons/email.svg';
 import OpenEye from 'src/assets/icons/eye_open.svg';
 import styles from './SignUp.styles';

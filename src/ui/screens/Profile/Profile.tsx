@@ -8,7 +8,7 @@ import Button from 'src/ui/components/Button';
 import CheckBox from 'src/ui/components/CheckBox';
 import UserAvatar from 'src/ui/screens/components/UserAvatar';
 
-import { useUser } from 'src/hooks/useUser';
+import useUser from 'src/hooks/useUser';
 import useTheme from 'src/hooks/useTheme';
 
 import styles from './Profile.styles';

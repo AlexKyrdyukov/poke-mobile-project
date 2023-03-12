@@ -18,7 +18,7 @@ const PokemonItem: React.FC<Props> = (props) => {
     weight,
     sprites,
   } = pokemon;
-  const image = sprites?.back_default;
+  const image = sprites?.front_default;
 
   const isString = (image: string | Record<string, string | object>): image is string => {
     return (image as string)?.length !== undefined;

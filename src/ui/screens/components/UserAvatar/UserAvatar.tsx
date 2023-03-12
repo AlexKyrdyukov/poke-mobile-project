@@ -5,7 +5,7 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import type { MediaType } from 'react-native-image-picker';
 
 import Button from 'src/ui/components/Button/Button';
-import { useUser } from 'src/hooks/useUser';
+import useUser from 'src/hooks/useUser';
 import useTheme from 'src/hooks/useTheme';
 
 import Profile from 'src/assets/icons/profile.svg';

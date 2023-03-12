@@ -2,7 +2,7 @@ import React from 'react';
 import type { Pokemon, Sprites } from 'src/types/pokemon';
 import pokemonApi from 'src/api/pokemonApi';
 
-export const usePokemon = (name: string) => {
+const usePokemon = (name: string) => {
   const [pokemon, setPokemon] = React.useState<Pokemon>();
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -44,3 +44,5 @@ export const usePokemon = (name: string) => {
     pokemon,
   };
 };
+
+export default usePokemon;

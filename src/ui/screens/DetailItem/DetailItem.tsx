@@ -3,7 +3,7 @@ import React from 'react';
 
 import type { ParamListBase } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { usePokemon } from 'src/hooks/usePokemon';
+import usePokemon from 'src/hooks/usePokemon';
 import useTheme from 'src/hooks/useTheme';
 import styles from './DetailItem.styles';
 

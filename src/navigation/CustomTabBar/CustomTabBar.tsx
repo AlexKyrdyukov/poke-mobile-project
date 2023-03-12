@@ -3,7 +3,7 @@ import { TouchableOpacity, View } from 'react-native';
 
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import useTheme from 'src/hooks/useTheme';
-import { colors } from 'src/consts/colors';
+import colors from 'src/consts/colors';
 
 import HomeLogo from 'src/assets/icons/home.svg';
 import ListLogo from 'src/assets/icons/list.svg';

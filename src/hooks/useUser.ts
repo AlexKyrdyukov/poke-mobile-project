@@ -23,7 +23,7 @@ type PasswordsData = {
   confirmNewPassword?: string;
 };
 
-export const useUser = () => {
+const useUser = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(({ rootSlice }) => rootSlice.userSlice.user);
   const [isSuccesful, setIsSuccessFul] = React.useState(false);
@@ -218,7 +218,6 @@ export const useUser = () => {
         password: newPassword,
       };
       await storage.user.update(currentEmail, newUser);
-      setIsSuccessFul(true);
       Notifier.showNotification({
         title: 'The request was success',
         description: 'password was success updated',
@@ -227,6 +226,7 @@ export const useUser = () => {
           alertType: 'success',
         },
       });
+      setIsSuccessFul(true);
     } catch (error) {
       console.error(error);
     }
@@ -278,3 +278,5 @@ export const useUser = () => {
     setIsSuccessFul,
   };
 };
+
+export default useUser;

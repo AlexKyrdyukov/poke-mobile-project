@@ -1,13 +1,13 @@
 import reactNative from 'react-native';
-import { colors } from 'src/consts/colors';
+import colors from 'src/consts/colors';
 import type { Theme } from 'src/types/theme';
 
 const style = (props: Theme) => reactNative.StyleSheet.create({
   sectionContainer: {
     flex: 1,
-    marginTop: 32,
     paddingHorizontal: 24,
     backgroundColor: colors.screen[props.theme].background,
+    paddingTop: 20,
   },
   buttonSignInContainer: {
     backgroundColor: colors.button[props.theme].background,
