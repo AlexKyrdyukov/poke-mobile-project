@@ -3,6 +3,7 @@ import { TouchableOpacity, View } from 'react-native';
 
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import useTheme from 'src/hooks/useTheme';
+import { colors } from 'src/consts/colors';
 
 import HomeLogo from 'src/assets/icons/home.svg';
 import ListLogo from 'src/assets/icons/list.svg';
@@ -28,7 +29,9 @@ const CustomTabBar: React.FC<Props> = ({ state, navigation }) => {
         <HomeLogo
           width={40}
           height={index === 0 ? 40 : 30}
-          fill={index === 0 ? '#00ff7f' : '#ffa07a'}
+          fill={index === 0
+            ? colors.tabBar[theme].isFocus
+            : colors.tabBar[theme].isBlur}
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -39,7 +42,10 @@ const CustomTabBar: React.FC<Props> = ({ state, navigation }) => {
         <ListLogo
           width={40}
           height={index === 1 ? 40 : 30}
-          fill={index === 1 ? '#00ff7f' : '#ffa07a'}
+          fill={index === 1
+            ? colors.tabBar[theme].isFocus
+            : colors.tabBar[theme].isBlur}
+
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -50,7 +56,10 @@ const CustomTabBar: React.FC<Props> = ({ state, navigation }) => {
         <ProfileLogo
           width={40}
           height={index === 2 ? 40 : 30}
-          fill={index === 2 ? '#00ff7f' : '#ffa07a'}
+          fill={index === 2
+            ? colors.tabBar[theme].isFocus
+            : colors.tabBar[theme].isBlur}
+
         />
       </TouchableOpacity>
     </View>

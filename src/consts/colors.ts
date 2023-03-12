@@ -74,4 +74,14 @@ export const colors = {
       text: '#8a2be2',
     },
   },
+  tabBar: {
+    dark: {
+      isFocus: '#00ff7f',
+      isBlur: '#ffa07a',
+    },
+    light: {
+      isFocus: '#ff00ff',
+      isBlur: '#008080',
+    },
+  },
 };
