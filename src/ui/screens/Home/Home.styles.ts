@@ -16,9 +16,9 @@ const styles = (props: Theme) => reactNative.StyleSheet.create({
     marginBottom: 20,
   },
   imageContainerStyle: {
-    maxHeight: 300,
-    maxWidth: 300,
-    marginBottom: 40,
+    maxHeight: 250,
+    maxWidth: 250,
+    marginBottom: 10,
   },
   imageStyle: {
     height: '100%',

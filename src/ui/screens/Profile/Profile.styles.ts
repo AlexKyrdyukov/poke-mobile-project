@@ -14,7 +14,7 @@ const style = (props: Theme) => reactNative.StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 10,
     marginHorizontal: 30,
-    marginBottom: 30,
+    marginBottom: 20,
   },
   buttonLinkSignUpContainer: {
     backgroundColor: colors.button[props.theme].background,
