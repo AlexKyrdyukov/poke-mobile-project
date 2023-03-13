@@ -8,8 +8,6 @@ const useTheme = () => {
   const theme = useAppSelector(({ rootSlice }) => rootSlice.appSlice.theme);
 
   React.useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log('event');
     (async () => {
       const sessionEmail = await storage.sessionEmail.get();
       if (!sessionEmail) {
@@ -21,8 +19,7 @@ const useTheme = () => {
       }
       dispatch(appSliceActions.setTheme(theme));
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [theme, dispatch]);
 
   const checBoxState = theme === 'light';
   const setThemeState = async () => {

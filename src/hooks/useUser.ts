@@ -184,6 +184,7 @@ const useUser = () => {
     try {
       const { password, newPassword } = data;
       const currentEmail = await storage.sessionEmail.get();
+
       if (!currentEmail) {
         Notifier.showNotification({
           title: 'The request was failed',
@@ -195,6 +196,7 @@ const useUser = () => {
         });
         return;
       }
+
       const user = await storage.user.get(currentEmail);
       if (!user) {
         Notifier.showNotification({
@@ -218,6 +220,7 @@ const useUser = () => {
         });
         return;
       }
+
       const newUser = {
         ...user,
         password: newPassword,
@@ -273,8 +276,6 @@ const useUser = () => {
 
   const changeData = async (data: UserData) => {
     try {
-      // eslint-disable-next-line no-console
-      console.log(data);
       const currentEmail = await storage.sessionEmail.get();
       if (!currentEmail) {
         Notifier.showNotification({
@@ -287,7 +288,14 @@ const useUser = () => {
         });
         return;
       }
-      await storage.user.update(currentEmail, data);
+      const user = await storage.user.get(currentEmail);
+      const updateUser = {
+        ...user,
+        ...data,
+      };
+      await storage.user.set(updateUser, data.email);
+      await storage.sessionEmail.set(data.email);
+
       Notifier.showNotification({
         title: 'The request was success',
         description: 'data was success updated',
