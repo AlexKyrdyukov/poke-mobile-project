@@ -2,7 +2,7 @@ import reactNative from 'react-native';
 import colors from 'src/consts/colors';
 import type { Theme } from 'src/types/theme';
 
-const styles = (props:Theme) => reactNative.StyleSheet.create({
+const styles = (props: Theme) => reactNative.StyleSheet.create({
   componentContainer: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -10,15 +10,15 @@ const styles = (props:Theme) => reactNative.StyleSheet.create({
     backgroundColor: colors.screen[props.theme].background,
   },
   imageContainer: {
-    borderRadius: 50,
     backgroundColor: colors.screen[props.theme].imageContainer,
     height: 200,
     width: 200,
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 1000,
   },
   imageStyles: {
-    borderRadius: 50,
+    borderRadius: 1000,
     height: '100%',
     width: '100%',
   },
@@ -32,15 +32,6 @@ const styles = (props:Theme) => reactNative.StyleSheet.create({
   label: {
     margin: 8,
   },
-  button: {
-    width: 250,
-    height: 60,
-    backgroundColor: colors.button[props.theme].background,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 4,
-    marginBottom: 12,
-  },
   buttonText: {
     textAlign: 'center',
     fontSize: 15,
@@ -51,17 +42,12 @@ const styles = (props:Theme) => reactNative.StyleSheet.create({
     flexDirection: 'row',
     gap: 20,
   },
-  buttonSignUpContainer: {
-    backgroundColor: colors.button[props.theme].background,
-    borderRadius: 10,
-    paddingVertical: 10,
-  },
-  buttonSignUpText: {
-    fontSize: 18,
-    color: colors.button[props.theme].text,
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    textTransform: 'uppercase',
+  buttonCameraStyle: {
+    position: 'absolute',
+    left: 0,
+    bottom: 20,
+    backgroundColor: colors.default.white,
+    borderRadius: 1000,
   },
 });
 

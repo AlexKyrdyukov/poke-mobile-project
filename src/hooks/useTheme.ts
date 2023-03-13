@@ -21,13 +21,14 @@ const useTheme = () => {
     })();
   }, [theme, dispatch]);
 
-  const checBoxState = theme === 'light';
+  const checkBoxState = theme === 'light';
+
   const setThemeState = async () => {
     const sessionEmail = await storage.sessionEmail.get();
     if (!sessionEmail) {
       return;
     }
-    if (theme !== 'light') {
+    if (!checkBoxState) {
       storage.themeApp.set('light', sessionEmail);
       return dispatch(appSliceActions.setTheme('light'));
     }
@@ -36,7 +37,7 @@ const useTheme = () => {
   };
   return {
     theme,
-    checBoxState,
+    checkBoxState,
     setThemeState,
   };
 };

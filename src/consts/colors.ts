@@ -84,6 +84,16 @@ const colors = {
       isBlur: '#008080',
     },
   },
+  default: {
+    white: '#ffffff',
+    black: '#000000',
+    blue: '#0000ff',
+    gray: '#a9a9a9',
+    green: '#008000',
+    pink: '#ff00ff',
+    orange: '#ffa500',
+    purplw: '#800080',
+  },
 };
 
 export default colors;

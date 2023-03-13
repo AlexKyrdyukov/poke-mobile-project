@@ -16,7 +16,7 @@ import styles from './Profile.styles';
 type Props = NativeStackScreenProps<ParamListBase>;
 
 const Profile: React.FC<Props> = (props) => {
-  const { setThemeState, theme, checBoxState } = useTheme();
+  const { setThemeState, theme, checkBoxState } = useTheme();
   const { remove, logOut } = useUser();
   const { navigation } = props;
 
@@ -53,7 +53,7 @@ const Profile: React.FC<Props> = (props) => {
         onPress={setThemeState}
         text="change theme"
         label={theme}
-        checkBoxState={checBoxState}
+        checkBoxState={checkBoxState}
       />
     </View>
   );
