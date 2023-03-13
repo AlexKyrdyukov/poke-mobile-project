@@ -23,26 +23,30 @@ const Profile: React.FC<Props> = (props) => {
   return (
     <View style={styles({ theme }).sectionContainer}>
       <UserAvatar />
+      <View
+        style={styles({ theme }).buttonsContainer}
+      >
+        <Button
+          onPress={remove}
+          activeOpacity={0.8}
+          containerStyle={styles({ theme }).buttonContainer}
+          textStyle={styles({ theme }).buttonText}
+          title="delete user"
+        />
+        <Button
+          onPress={logOut}
+          activeOpacity={0.8}
+          containerStyle={styles({ theme }).buttonContainer}
+          textStyle={styles({ theme }).buttonText}
+          title="log out"
+        />
+      </View>
       <Button
-        onPress={remove}
+        onPress={() => navigation.navigate('ChangeUserData')}
         activeOpacity={0.8}
-        containerStyle={styles({ theme }).buttonSignInContainer}
-        textStyle={styles({ theme }).buttonSignInText}
-        title="delete user"
-      />
-      <Button
-        onPress={logOut}
-        activeOpacity={0.8}
-        containerStyle={styles({ theme }).buttonSignInContainer}
-        textStyle={styles({ theme }).buttonSignInText}
-        title="log out"
-      />
-      <Button
-        onPress={() => navigation.navigate('ChangePassword')}
-        activeOpacity={0.8}
-        containerStyle={styles({ theme }).buttonSignInContainer}
-        textStyle={styles({ theme }).buttonSignInText}
-        title="change password"
+        containerStyle={styles({ theme }).buttonContainer}
+        textStyle={styles({ theme }).buttonText}
+        title="change data"
       />
       <CheckBox
         containerCheckBoxStyle={styles({ theme }).checkBoxStyle}

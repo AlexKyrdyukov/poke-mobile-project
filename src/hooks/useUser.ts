@@ -23,6 +23,11 @@ type PasswordsData = {
   confirmNewPassword?: string;
 };
 
+type UserData = {
+  email: string;
+  fullName: string;
+};
+
 const useUser = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(({ rootSlice }) => rootSlice.userSlice.user);
@@ -266,6 +271,36 @@ const useUser = () => {
     }
   };
 
+  const changeData = async (data: UserData) => {
+    try {
+      // eslint-disable-next-line no-console
+      console.log(data);
+      const currentEmail = await storage.sessionEmail.get();
+      if (!currentEmail) {
+        Notifier.showNotification({
+          title: 'The request was failed',
+          description: 'unknown error',
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+        return;
+      }
+      await storage.user.update(currentEmail, data);
+      Notifier.showNotification({
+        title: 'The request was success',
+        description: 'data was success updated',
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'success',
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return {
     user,
     signIn,
@@ -274,6 +309,7 @@ const useUser = () => {
     logOut,
     savePhoto,
     isSuccesful,
+    changeData,
     changePassword,
     setIsSuccessFul,
   };

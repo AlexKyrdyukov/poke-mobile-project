@@ -9,20 +9,14 @@ const style = (props: Theme) => reactNative.StyleSheet.create({
     backgroundColor: colors.screen[props.theme].background,
     paddingTop: 20,
   },
-  buttonSignInContainer: {
+  buttonContainer: {
     backgroundColor: colors.button[props.theme].background,
     borderRadius: 10,
     paddingVertical: 10,
     marginHorizontal: 30,
     marginBottom: 20,
   },
-  buttonLinkSignUpContainer: {
-    backgroundColor: colors.button[props.theme].background,
-    borderRadius: 10,
-    paddingVertical: 10,
-    marginHorizontal: 40,
-  },
-  buttonSignInText: {
+  buttonText: {
     fontSize: 18,
     color: colors.button[props.theme].text,
     fontWeight: 'bold',
@@ -31,6 +25,9 @@ const style = (props: Theme) => reactNative.StyleSheet.create({
   },
   checkBoxStyle: {
     marginLeft: 30,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
   },
 });
 

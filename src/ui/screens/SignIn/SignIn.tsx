@@ -88,15 +88,15 @@ const SignIn: React.FC<Props> = ({ navigation }) => {
       />
       <Button
         activeOpacity={0.8}
-        containerStyle={styles({ theme }).buttonSignInContainer}
-        textStyle={styles({ theme }).buttonSignInText}
+        containerStyle={styles({ theme }).buttonContainer}
+        textStyle={styles({ theme }).buttonText}
         onPress={handleSubmit(signIn)}
         title="Sign in"
       />
       <Button
         activeOpacity={0.8}
-        containerStyle={styles({ theme }).buttonLinkSignUpContainer}
-        textStyle={styles({ theme }).buttonLinkSignUpText}
+        containerStyle={styles({ theme }).buttonContainer}
+        textStyle={styles({ theme }).buttonText}
         onPress={() => navigation.navigate('SignUp')}
         title="Go to sign up"
       />

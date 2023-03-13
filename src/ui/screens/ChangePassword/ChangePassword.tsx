@@ -12,6 +12,8 @@ import useUser from 'src/hooks/useUser';
 import useTheme from 'src/hooks/useTheme';
 
 import OpenEye from 'src/assets/icons/eye_open.svg';
+import AngrySmile from 'src/assets/icons/angry_smile.svg';
+import SafePassword from 'src/assets/icons/password_safe.svg';
 
 import styles from './ChangePassword.styles';
 
@@ -48,6 +50,14 @@ const ChangePassword: React.FC = () => {
 
   return (
     <View style={styles({ theme }).sectionContainer}>
+      <View
+        style={styles({ theme }).logoContainer}
+      >
+        {Object.keys(errors)?.length
+          ? <AngrySmile height={200} width={200} />
+          : <SafePassword height={200} width={200} />
+        }
+      </View>
       <Controller
         control={control}
         name="password"

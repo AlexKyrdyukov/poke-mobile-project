@@ -1,6 +1,6 @@
 export type UserStorage = {
   email: string;
-  password: string;
+  password?: string;
   fullName?: string | null;
   avatar?: string | null;
 };

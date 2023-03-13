@@ -37,6 +37,10 @@ const style = (props: Theme) => reactNative.StyleSheet.create({
     alignSelf: 'center',
     textTransform: 'uppercase',
   },
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 10,
+  },
 });
 
 export default style;

@@ -15,6 +15,7 @@ import styles from './UserAvatar.styles';
 const UserAvatar: React.FC = () => {
   const { savePhoto, user } = useUser();
   const { theme } = useTheme();
+
   const getFromGalery = async () => {
     const options = {
       selectionLimit: 1,

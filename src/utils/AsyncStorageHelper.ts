@@ -68,6 +68,7 @@ class AsyncStorageItem<D> {
 
 const storage = {
   sessionEmail: new AsyncStorageItem<string>('sessionEmail'), // for get session email
+  themeApp: new AsyncStorageItem<'dark' | 'light'>('theme'), // for work with theme application
   user: new AsyncStorageItem<UserStorage>('user'), // for get current user add user email as key
 };
 

@@ -1,3 +1,4 @@
+import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { User } from 'src/types/user';
 
@@ -19,6 +20,13 @@ export const userSlice = createSlice({
       if (state.user) {
         state.user.avatar = action.payload;
       }
+    },
+    updateUser(state, action: PayloadAction<{ email: string; fullName?: string}>) {
+      const data = action.payload;
+      state.user = {
+        ...state.user,
+        ...data,
+      };
     },
   },
 });

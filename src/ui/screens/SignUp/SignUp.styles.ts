@@ -16,13 +16,13 @@ const styles = (props: Theme) => reactNative.StyleSheet.create({
     marginBottom: 40,
     alignSelf: 'center',
   },
-  buttonSignUpContainer: {
+  buttonContainer: {
     backgroundColor: colors.button[props.theme].background,
     borderRadius: 10,
     paddingVertical: 10,
     marginHorizontal: 40,
   },
-  buttonSignUpText: {
+  buttonText: {
     fontSize: 18,
     color: colors.button[props.theme].text,
     fontWeight: 'bold',

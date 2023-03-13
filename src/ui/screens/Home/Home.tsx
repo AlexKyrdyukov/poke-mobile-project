@@ -2,6 +2,7 @@ import { View, Text, Image } from 'react-native';
 import React from 'react';
 
 import useTheme from 'src/hooks/useTheme';
+import Dollars from 'src/assets/icons/dollars.svg';
 import styles from './Home.styles';
 
 const Home: React.FC = () => {
@@ -29,7 +30,7 @@ const Home: React.FC = () => {
         <Text
           style={styles({ theme }).textStyle}
         >You can also donate the card number for the development of the project
-          2346 8883 3452 0930. Good Luck!!!
+          2346 8883 3452 0930. Good Luck!!!<Dollars width={40} height={40} />
         </Text>
       </View>
     </View>
