@@ -40,7 +40,7 @@ const useUser = () => {
       try {
         const sessionEmail = await storage.sessionEmail.get();
         if (!sessionEmail) {
-          return null;
+          return;
         }
         const user = await authApi.getMe();
         dispatch(userSliceActions.setUser(user));
