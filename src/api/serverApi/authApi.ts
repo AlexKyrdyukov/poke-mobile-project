@@ -17,7 +17,7 @@ const signIn = async (user: AuthType) => {
 };
 
 const getMe = async () => {
-  const response = await axiosInstance.get('/auth/me');
+  const response = await axiosInstance.get<User>('/auth/me');
   return response.data || null;
 };
 
