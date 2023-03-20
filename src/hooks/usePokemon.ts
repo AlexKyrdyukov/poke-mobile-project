@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Pokemon, Sprites } from 'src/types/pokemon';
-import pokemonApi from 'src/api/pokemonApi';
+import pokemonApi from 'src/api/pokemonApi/pokemonApi';
 
 const usePokemon = (name: string) => {
   const [pokemon, setPokemon] = React.useState<Pokemon>();

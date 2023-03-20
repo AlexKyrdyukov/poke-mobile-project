@@ -1,6 +1,8 @@
+import { AxiosError } from 'axios';
 import React from 'react';
 import type { ImagePickerResponse } from 'react-native-image-picker';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
+import authApi from 'src/api/serverApi/authApi';
 
 import { useAppDispatch, useAppSelector } from 'src/store';
 import { userSliceActions } from 'src/store/slices/userSlice';
@@ -32,6 +34,7 @@ const useUser = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(({ rootSlice }) => rootSlice.userSlice.user);
   const [isSuccesful, setIsSuccessFul] = React.useState(false);
+
   React.useEffect(() => {
     (async () => {
       try {
@@ -39,45 +42,51 @@ const useUser = () => {
         if (!sessionEmail) {
           return null;
         }
-        const user = await storage.user.get(sessionEmail);
+        const user = await authApi.getMe();
         dispatch(userSliceActions.setUser(user));
       } catch (error) {
         console.error(error);
       }
     })();
+    return () => {
+      setIsSuccessFul(false);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   const signIn = async (data: SignInData) => {
     try {
-      const { email, password } = data;
-      const userStorage = await storage.user.get(email);
+      // const { email, password } = data;
+      // const userStorage = await storage.user.get(email);
 
-      if (!userStorage) {
-        Notifier.showNotification({
-          title: 'The request was failed',
-          description: 'user not found',
-          Component: NotifierComponents.Alert,
-          componentProps: {
-            alertType: 'error',
-          },
-        });
-        return;
-      }
-      if (password !== userStorage.password) {
-        Notifier.showNotification({
-          title: 'The request was failed',
-          description: 'Entered password invalid',
-          Component: NotifierComponents.Alert,
-          componentProps: {
-            alertType: 'error',
-          },
-        });
-        return;
-      }
+      // if (!userStorage) {
+      //   Notifier.showNotification({
+      //     title: 'The request was failed',
+      //     description: 'user not found',
+      //     Component: NotifierComponents.Alert,
+      //     componentProps: {
+      //       alertType: 'error',
+      //     },
+      //   });
+      //   return;
+      // }
+      // if (password !== userStorage.password) {
+      //   Notifier.showNotification({
+      //     title: 'The request was failed',
+      //     description: 'Entered password invalid',
+      //     Component: NotifierComponents.Alert,
+      //     componentProps: {
+      //       alertType: 'error',
+      //     },
+      //   });
+      //   return;
+      // }
 
-      const user: Partial<typeof userStorage> = userStorage;
-      delete user.password;
-      await storage.sessionEmail.set(email);
+      // const user: Partial<typeof userStorage> = userStorage;
+      // delete user.password;
+      const { user, accessToken, refreshToken } = await authApi.signIn(data);
+      await storage.tokens.set(`${accessToken}, ${refreshToken}`, user.email);
+      await storage.sessionEmail.set(user.email);
       dispatch(userSliceActions.setUser(user));
       Notifier.showNotification({
         title: 'The request was success',
@@ -89,36 +98,47 @@ const useUser = () => {
       });
     } catch (error) {
       console.error(error);
-      throw error;
+      if (error instanceof AxiosError) {
+        Notifier.showNotification({
+          title: 'erorr',
+          description: error.message,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
     }
   };
 
   const signUp = async (enteredData: SignUpData) => {
     try {
-      const data = enteredData;
-      const { email } = data;
-      const existenceUser = await storage.user.get(email);
+      // const data = enteredData;
+      // const { email } = data;
+      // const existenceUser = await storage.user.get(email);
 
-      if (existenceUser) {
-        Notifier.showNotification({
-          title: 'The request was failed',
-          description: 'user with this email already exist',
-          Component: NotifierComponents.Alert,
-          componentProps: {
-            alertType: 'error',
-          },
-        });
-        return;
-      }
+      // if (existenceUser) {
+      //   Notifier.showNotification({
+      //     title: 'The request was failed',
+      //     description: 'user with this email already exist',
+      //     Component: NotifierComponents.Alert,
+      //     componentProps: {
+      //       alertType: 'error',
+      //     },
+      //   });
+      //   return;
+      // }
 
-      delete data.repeatPassword;
-      await storage.user.set(data, email);
-      await storage.sessionEmail.set(email);
+      // delete data.repeatPassword;
+      // await storage.user.set(data, email);
+      // await storage.sessionEmail.set(email);
 
-      const user: Partial<typeof data> = data;
-      delete user.password;
+      // const user: Partial<typeof data> = data;
+      // delete user.password;
+      const { user, accessToken, refreshToken } = await authApi.signUp(enteredData);
+      await storage.tokens.set(`${accessToken}, ${refreshToken}`, user.email);
       dispatch(userSliceActions.setUser(user));
-      dispatch(userSliceActions.setUser(user));
+      await storage.sessionEmail.set(user.email);
       Notifier.showNotification({
         title: 'The request was success',
         description: 'Welcome in PokemonGo',
@@ -129,7 +149,16 @@ const useUser = () => {
       });
     } catch (error) {
       console.error(error);
-      return null;
+      if (error instanceof AxiosError) {
+        Notifier.showNotification({
+          title: 'erorr',
+          description: error.message,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
     }
   };
 
@@ -159,7 +188,16 @@ const useUser = () => {
       });
     } catch (error) {
       console.error(error);
-      throw error;
+      if (error instanceof AxiosError) {
+        Notifier.showNotification({
+          title: 'erorr',
+          description: error.message,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
     }
   };
 
@@ -241,6 +279,7 @@ const useUser = () => {
   };
 
   const savePhoto = async (response: ImagePickerResponse) => {
+    setIsSuccessFul(true);
     try {
       const { assets } = response;
       if (!assets?.length) {
@@ -269,8 +308,65 @@ const useUser = () => {
           alertType: 'success',
         },
       });
+      setIsSuccessFul(false);
     } catch (error) {
       console.error(error);
+      if (error instanceof AxiosError) {
+        Notifier.showNotification({
+          title: 'erorr',
+          description: error.message,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
+    }
+  };
+
+  const deletePhoto = async () => {
+    try {
+      setIsSuccessFul(true);
+      const sessionEmail = await storage.sessionEmail.get();
+      if (!sessionEmail) {
+        Notifier.showNotification({
+          title: 'The request was failed',
+          description: 'unknown error',
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+        return;
+      }
+      const user = await storage.user.get(sessionEmail);
+      if (!user) {
+        Notifier.showNotification({
+          title: 'The request was failed',
+          description: 'unknown error',
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+        return;
+      }
+      delete user.avatar;
+      dispatch(userSliceActions.setUser(user));
+      await storage.user.set(user, sessionEmail);
+      setIsSuccessFul(false);
+    } catch (error) {
+      console.error(error);
+      if (error instanceof AxiosError) {
+        Notifier.showNotification({
+          title: 'erorr',
+          description: error.message,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
     }
   };
 
@@ -289,6 +385,9 @@ const useUser = () => {
         return;
       }
       const user = await storage.user.get(currentEmail);
+      if (!user) {
+        return;
+      }
       const updateUser = {
         ...user,
         ...data,
@@ -306,6 +405,16 @@ const useUser = () => {
       });
     } catch (error) {
       console.error(error);
+      if (error instanceof AxiosError) {
+        Notifier.showNotification({
+          title: 'erorr',
+          description: error.message,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
     }
   };
 
@@ -318,6 +427,7 @@ const useUser = () => {
     savePhoto,
     isSuccesful,
     changeData,
+    deletePhoto,
     changePassword,
     setIsSuccessFul,
   };

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useAppSelector, useAppDispatch } from 'src/store';
-import pokemonApi from 'src/api/pokemonApi';
+import pokemonApi from 'src/api/pokemonApi/pokemonApi';
 import { pokeSliceActions } from 'src/store/slices/pokeSlice';
 
 const LIMIT = 20;

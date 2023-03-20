@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, Text, Image, PermissionsAndroid, TouchableOpacity } from 'react-native';
+import { View, Image, PermissionsAndroid, TouchableOpacity } from 'react-native';
 
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import type { MediaType } from 'react-native-image-picker';
 
-import Button from 'src/ui/components/Button';
 import ImagePickerModal from 'src/ui/screens/components/ImagePickerModal';
 import useUser from 'src/hooks/useUser';
 import useTheme from 'src/hooks/useTheme';
@@ -16,18 +15,24 @@ import Plus from 'src/assets/icons/plus.svg';
 import styles from './UserAvatar.styles';
 
 const UserAvatar: React.FC = () => {
-  const { savePhoto, user } = useUser();
+  const { savePhoto, isSuccesful, user, deletePhoto } = useUser();
   const { theme } = useTheme();
   const [isModalVisible, setModalVisible] = React.useState(false);
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+  React.useEffect(() => {
+    if (isSuccesful) {
+      setModalVisible(!isSuccesful);
+    }
+  }, [isSuccesful]);
+
+  const openModal = () => {
+    setModalVisible(true);
   };
 
   const getFromGalery = async () => {
     const options = {
       selectionLimit: 1,
-      mediaType: 'photo' as MediaType,
+      mediaType: 'mixed' as MediaType,
       includeBase64: false,
     };
     await launchImageLibrary(options, savePhoto);
@@ -36,7 +41,7 @@ const UserAvatar: React.FC = () => {
   const createCamera = async () => {
     const options = {
       selectionLimit: 1,
-      mediaType: 'photo' as MediaType,
+      mediaType: 'mixed' as MediaType,
       includeBase64: false,
     };
     try {
@@ -76,34 +81,17 @@ const UserAvatar: React.FC = () => {
         }
         <TouchableOpacity
           style={styles({ theme }).buttonCameraStyle}
-          onPress={toggleModal}
+          onPress={openModal}
         >
           <Plus width={30} height={30} fill={colors.default.green} />
         </TouchableOpacity>
       </View>
-      <View
-        style={styles({ theme }).buttonContainer}
-      >
-        <Button
-          containerStyle={styles({ theme }).buttonContainer}
-          textStyle={styles({ theme }).buttonText}
-          onPress={getFromGalery}
-          activeOpacity={0.8}
-          title="select photo"
-        />
-        <Button
-          containerStyle={styles({ theme }).buttonContainer}
-          textStyle={styles({ theme }).buttonText}
-          onPress={createCamera}
-          activeOpacity={0.8}
-          title="create photo"
-        />
-      </View>
       <ImagePickerModal
-        isVisible={visible}
-        onClose={() => setVisible(false)}
-        onImageLibraryPress={onImageLibraryPress}
-        onCameraPress={onCameraPress}
+        isVisible={isModalVisible}
+        onClose={() => setModalVisible(false)}
+        onImageLibraryPress={getFromGalery}
+        onCameraPress={createCamera}
+        onDeletePhoto={deletePhoto}
       />
     </View>
   );

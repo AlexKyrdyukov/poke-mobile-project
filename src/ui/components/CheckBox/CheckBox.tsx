@@ -22,11 +22,12 @@ const CheckBox: React.FC<Props> = ({
   ...props }) => {
   return (
     <View
-      style={[styles.componentContainer,
+      style={[styles().componentContainer,
         containerCheckBoxStyle]}
     >
       <TouchableOpacity
         {...props}
+        style={styles().touchableContainer}
       >
         {checkBoxState
           ? <On width={40} height={40} />
