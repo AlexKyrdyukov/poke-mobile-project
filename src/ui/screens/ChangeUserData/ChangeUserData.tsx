@@ -26,7 +26,6 @@ type Props = NativeStackScreenProps<ParamListBase>;
 const ChangeUserData: React.FC<Props> = ({ navigation }) => {
   const { theme } = useTheme();
   const { changeData, user } = useUser();
-
   const schema = yup.object({
     email: dataValidation.requiredEmail,
     fullName: dataValidation.fullName,

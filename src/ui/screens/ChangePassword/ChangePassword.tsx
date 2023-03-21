@@ -19,7 +19,7 @@ import styles from './ChangePassword.styles';
 
 const ChangePassword: React.FC = () => {
   const { theme } = useTheme();
-  const { changePassword, isSuccesful, setIsSuccessFul } = useUser();
+  const { changePassword, isSuccesful } = useUser();
 
   const schema = yup.object({
     password: dataValidation.requiredPassword,
@@ -35,7 +35,6 @@ const ChangePassword: React.FC = () => {
       confirmNewPassword: '',
     },
   });
-
   React.useEffect(() => {
     if (isSubmitSuccessful && isSuccesful) {
       reset({
@@ -43,7 +42,6 @@ const ChangePassword: React.FC = () => {
         newPassword: '',
         confirmNewPassword: '',
       });
-      setIsSuccessFul(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful, isSuccesful]);

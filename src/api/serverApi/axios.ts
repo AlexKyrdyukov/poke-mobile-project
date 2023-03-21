@@ -1,22 +1,26 @@
 import axios, { AxiosError } from 'axios';
 import getDeviceId from 'src/utils/deviceIdHelper';
 import tokenHelper from 'src/utils/tokenHelper';
-import authApi from './authApi';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:4000/api',
+  baseURL: 'http://192.168.88.15:4000/api',
 });
 
 axiosInstance.interceptors.request.use(async (request) => {
   const [accessToken] = await tokenHelper.getTokens();
   const deviceId = await getDeviceId();
+  const customRequest = request;
+  customRequest.headers.device_id = deviceId;
   if (accessToken) {
-    const customRequest = request;
     customRequest.headers.authorization = `Bearer ${accessToken}`;
-    customRequest.headers.device_id = deviceId;
   }
   return request;
 });
+
+const refresh = async (refreshToken: string | undefined) => {
+  const response = await axiosInstance.post<{ accessToken: string; refreshToken: string }>('/auth/refresh', { refreshToken });
+  return response.data;
+};
 
 axiosInstance.interceptors.response.use(async (response) => {
   return response;
@@ -29,7 +33,7 @@ axiosInstance.interceptors.response.use(async (response) => {
       originalRequest.url !== '/auth/refresh'
     ) {
       const [, oldRefreshToken] = await tokenHelper.getTokens();
-      const { accessToken, refreshToken } = await authApi.refresh(`Bearer ${oldRefreshToken}`);
+      const { accessToken, refreshToken } = await refresh(`Bearer ${oldRefreshToken}`);
       await tokenHelper.setTokens(`${accessToken}, ${refreshToken}`);
 
       if (originalRequest) {

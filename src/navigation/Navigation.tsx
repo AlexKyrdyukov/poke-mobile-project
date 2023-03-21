@@ -3,16 +3,19 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import AuthStack from 'src/navigation/AuthStack';
 import RootStack from 'src/navigation/RootStack';
-
 import useUser from 'src/hooks/useUser';
+import Loader from './Loader';
 
 const AppNavigation: React.FC = () => {
-  const { user } = useUser();
-
+  const { user, isSuccesful } = useUser();
   return (
-    <NavigationContainer>
-      {user ? <RootStack /> : <AuthStack />}
-    </NavigationContainer>
+    isSuccesful
+      ? (
+        <NavigationContainer>
+          {user ? <RootStack /> : <AuthStack />}
+        </NavigationContainer>)
+      : (<Loader />)
   );
 };
+
 export default AppNavigation;

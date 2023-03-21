@@ -21,7 +21,7 @@ export const userSlice = createSlice({
         state.user.avatar = action.payload;
       }
     },
-    updateUser(state, action: PayloadAction<{ email: string; fullName?: string}>) {
+    updateUser(state, action: PayloadAction<User>) {
       const data = action.payload;
       state.user = {
         ...state.user,

@@ -84,6 +84,14 @@ const colors = {
       isBlur: '#008080',
     },
   },
+  loader: {
+    dark: {
+      color: '#ffffff',
+    },
+    light: {
+      color: '#000000',
+    },
+  },
   default: {
     white: '#ffffff',
     black: '#000000',

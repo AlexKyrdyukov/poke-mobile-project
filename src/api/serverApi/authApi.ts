@@ -21,14 +21,8 @@ const getMe = async () => {
   return response.data || null;
 };
 
-const refresh = async (token: string | undefined) => {
-  const response = await axiosInstance.post<{ accessToken: string; refreshToken: string }>('/auth/refresh', { token });
-  return response.data;
-};
-
 export default {
   getMe,
   signIn,
   signUp,
-  refresh,
 };

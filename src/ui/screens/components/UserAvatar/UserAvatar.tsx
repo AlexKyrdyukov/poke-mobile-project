@@ -5,7 +5,7 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import type { MediaType } from 'react-native-image-picker';
 
 import ImagePickerModal from 'src/ui/screens/components/ImagePickerModal';
-import useUser from 'src/hooks/useUser';
+import useAvatar from 'src/hooks/useAvatar';
 import useTheme from 'src/hooks/useTheme';
 import colors from 'src/consts/colors';
 
@@ -15,7 +15,7 @@ import Plus from 'src/assets/icons/plus.svg';
 import styles from './UserAvatar.styles';
 
 const UserAvatar: React.FC = () => {
-  const { savePhoto, isSuccesful, user, deletePhoto } = useUser();
+  const { savePhoto, isSuccesful, user, deletePhoto } = useAvatar();
   const { theme } = useTheme();
   const [isModalVisible, setModalVisible] = React.useState(false);
 
