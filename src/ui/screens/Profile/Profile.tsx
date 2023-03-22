@@ -48,6 +48,13 @@ const Profile: React.FC<Props> = (props) => {
         textStyle={styles({ theme }).buttonText}
         title="change data"
       />
+      <Button
+        onPress={() => navigation.navigate('ChangeUserData')}
+        activeOpacity={0.8}
+        containerStyle={styles({ theme }).buttonContainer}
+        textStyle={styles({ theme }).buttonText}
+        title="show all key"
+      />
       <CheckBox
         containerCheckBoxStyle={styles({ theme }).checkBoxStyle}
         onPress={setThemeState}

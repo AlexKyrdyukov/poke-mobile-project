@@ -33,7 +33,9 @@ axiosInstance.interceptors.response.use(async (response) => {
       originalRequest.url !== '/auth/refresh'
     ) {
       const [, oldRefreshToken] = await tokenHelper.getTokens();
+      console.log(oldRefreshToken);
       const { accessToken, refreshToken } = await refresh(`Bearer ${oldRefreshToken}`);
+      console.log(refreshToken);
       await tokenHelper.setTokens(`${accessToken}, ${refreshToken}`);
 
       if (originalRequest) {

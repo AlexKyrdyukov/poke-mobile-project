@@ -13,6 +13,7 @@ const useTheme = () => {
       if (!sessionEmail) {
         return;
       }
+      console.log(sessionEmail);
       const theme = await storage.themeApp.get(sessionEmail);
       if (!theme) {
         return dispatch(appSliceActions.setTheme('light'));

@@ -36,14 +36,17 @@ const useUser = () => {
   const [isSuccesful, setIsSuccessFul] = React.useState(false);
 
   React.useEffect(() => {
+    console.log(user, Boolean(user));
     if (!user) {
       (async () => {
         try {
           const sessionEmail = await storage.sessionEmail.get();
           if (!sessionEmail) {
             setIsSuccessFul(true);
+            console.log(sessionEmail);
             return;
           }
+          console.log(sessionEmail)
           const user = await authApi.getMe();
 
           dispatch(userSliceActions.setUser(user));
@@ -61,9 +64,9 @@ const useUser = () => {
 
   const signIn = async (data: SignInData) => {
     try {
+      await storage.sessionEmail.set(data.email);
       const { user, accessToken, refreshToken } = await authApi.signIn(data);
       await storage.tokens.set(`${accessToken}, ${refreshToken}`, user.email);
-      await storage.sessionEmail.set(user.email);
       dispatch(userSliceActions.setUser(user));
       Notifier.showNotification({
         title: 'The request was success',
@@ -78,7 +81,7 @@ const useUser = () => {
       if (error instanceof AxiosError) {
         Notifier.showNotification({
           title: 'erorr',
-          description: error.message,
+          description: error.response?.data.message,
           Component: NotifierComponents.Alert,
           componentProps: {
             alertType: 'error',
@@ -90,11 +93,12 @@ const useUser = () => {
 
   const signUp = async (enteredData: SignUpData) => {
     try {
+      await storage.sessionEmail.set(enteredData.email);
       const { repeatPassword, ...data } = enteredData;
       const { user, accessToken, refreshToken } = await authApi.signUp(data);
       await storage.tokens.set(`${accessToken}, ${refreshToken}`, user.email);
+
       dispatch(userSliceActions.setUser(user));
-      await storage.sessionEmail.set(user.email);
       Notifier.showNotification({
         title: 'The request was success',
         description: 'Welcome in PokemonGo',
@@ -108,7 +112,7 @@ const useUser = () => {
       if (error instanceof AxiosError) {
         Notifier.showNotification({
           title: 'erorr',
-          description: error.message,
+          description: error.response?.data.message,
           Component: NotifierComponents.Alert,
           componentProps: {
             alertType: 'error',
@@ -123,6 +127,8 @@ const useUser = () => {
       await userApi.deleteUser(user?.userId);
       await storage.deviceId.remove(user?.email);
       await storage.tokens.remove(user?.email);
+      console.log(await storage.sessionEmail.get());
+      await storage.sessionEmail.remove();
       dispatch(userSliceActions.removeUser());
       Notifier.showNotification({
         title: 'The request was success',
@@ -137,7 +143,7 @@ const useUser = () => {
       if (error instanceof AxiosError) {
         Notifier.showNotification({
           title: 'erorr',
-          description: error.message,
+          description: error.response?.data.message,
           Component: NotifierComponents.Alert,
           componentProps: {
             alertType: 'error',
@@ -150,17 +156,22 @@ const useUser = () => {
   const logOut = async () => {
     try {
       await storage.tokens.remove(user?.email);
-      await storage.sessionEmail.remove(user?.email);
+      await storage.sessionEmail.remove();
       dispatch(userSliceActions.removeUser());
+      const em = await storage.sessionEmail.get();
+      // eslint-disable-next-line no-console
+      console.log(em);
     } catch (error) {
-      Notifier.showNotification({
-        title: 'The request was failed',
-        description: 'unknown error repeat request',
-        Component: NotifierComponents.Alert,
-        componentProps: {
-          alertType: 'error',
-        },
-      });
+      if (error instanceof AxiosError) {
+        Notifier.showNotification({
+          title: 'erorr',
+          description: error.response?.data.message,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
       console.error(error);
     }
   };
@@ -184,7 +195,7 @@ const useUser = () => {
       if (error instanceof AxiosError) {
         Notifier.showNotification({
           title: 'erorr',
-          description: error.response?.data.error,
+          description: error.response?.data.message,
           Component: NotifierComponents.Alert,
           componentProps: {
             alertType: 'error',
@@ -211,7 +222,7 @@ const useUser = () => {
       if (error instanceof AxiosError) {
         Notifier.showNotification({
           title: 'erorr',
-          description: error.message,
+          description: error.response?.data.message,
           Component: NotifierComponents.Alert,
           componentProps: {
             alertType: 'error',
