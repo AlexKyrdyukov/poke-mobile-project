@@ -36,6 +36,7 @@ const useUser = () => {
   const [isSuccesful, setIsSuccessFul] = React.useState(false);
 
   React.useEffect(() => {
+    // eslint-disable-next-line no-console
     console.log(user, Boolean(user));
     if (!user) {
       (async () => {
@@ -43,10 +44,12 @@ const useUser = () => {
           const sessionEmail = await storage.sessionEmail.get();
           if (!sessionEmail) {
             setIsSuccessFul(true);
+            // eslint-disable-next-line no-console
             console.log(sessionEmail);
             return;
           }
-          console.log(sessionEmail)
+          // eslint-disable-next-line no-console
+          console.log(sessionEmail);
           const user = await authApi.getMe();
 
           dispatch(userSliceActions.setUser(user));
@@ -127,6 +130,7 @@ const useUser = () => {
       await userApi.deleteUser(user?.userId);
       await storage.deviceId.remove(user?.email);
       await storage.tokens.remove(user?.email);
+      // eslint-disable-next-line no-console
       console.log(await storage.sessionEmail.get());
       await storage.sessionEmail.remove();
       dispatch(userSliceActions.removeUser());
@@ -232,14 +236,23 @@ const useUser = () => {
     }
   };
 
+  const deleteAllKeys = async () => {
+    await storage.sessionEmail.clearAll();
+    await storage.deviceId.clearAll();
+    // await storage.user.clearAll();
+    await storage.tokens.clearAll();
+    await storage.themeApp.clearAll();
+  };
+
   return {
     user,
     signIn,
     signUp,
     remove,
     logOut,
-    isSuccesful,
     changeData,
+    isSuccesful,
+    deleteAllKeys,
     changePassword,
     setIsSuccessFul,
   };

@@ -17,7 +17,7 @@ type Props = NativeStackScreenProps<ParamListBase>;
 
 const Profile: React.FC<Props> = (props) => {
   const { setThemeState, theme, checkBoxState } = useTheme();
-  const { remove, logOut } = useUser();
+  const { remove, logOut, deleteAllKeys } = useUser();
   const { navigation } = props;
 
   return (
@@ -49,11 +49,11 @@ const Profile: React.FC<Props> = (props) => {
         title="change data"
       />
       <Button
-        onPress={() => navigation.navigate('ChangeUserData')}
+        onPress={deleteAllKeys}
         activeOpacity={0.8}
         containerStyle={styles({ theme }).buttonContainer}
         textStyle={styles({ theme }).buttonText}
-        title="show all key"
+        title="delete all keys"
       />
       <CheckBox
         containerCheckBoxStyle={styles({ theme }).checkBoxStyle}

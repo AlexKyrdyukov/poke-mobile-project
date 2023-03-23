@@ -66,7 +66,7 @@ const useAvatar = () => {
         });
         return;
       }
-      const user = await storage.user.get(sessionEmail);
+      // const user = await storage.user.get(sessionEmail);
       if (!user) {
         Notifier.showNotification({
           title: 'The request was failed',
@@ -80,7 +80,7 @@ const useAvatar = () => {
       }
       delete user.avatar;
       dispatch(userSliceActions.setUser(user));
-      await storage.user.set(user, sessionEmail);
+      // await storage.user.set(user, sessionEmail);
       setIsSuccessFul(false);
     } catch (error) {
       console.error(error);

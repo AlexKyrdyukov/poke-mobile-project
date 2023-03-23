@@ -13,7 +13,6 @@ const useTheme = () => {
       if (!sessionEmail) {
         return;
       }
-      console.log(sessionEmail);
       const theme = await storage.themeApp.get(sessionEmail);
       if (!theme) {
         return dispatch(appSliceActions.setTheme('light'));
@@ -36,6 +35,7 @@ const useTheme = () => {
     storage.themeApp.set('dark', sessionEmail);
     return dispatch(appSliceActions.setTheme('dark'));
   };
+
   return {
     theme,
     checkBoxState,
